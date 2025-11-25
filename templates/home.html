@@ -805,6 +805,7 @@
                             <div>
                                 <label class="hero-label" for="adults">البالغون</label>
                                 <select id="adults" name="adults" class="hero-select">
+                                    <option value="0" {% if adults == '0' or not adults %}selected{% endif %}>0</option>
                                     <option value="1" {% if adults == '1' %}selected{% endif %}>1</option>
                                     <option value="2" {% if adults == '2' %}selected{% endif %}>2</option>
                                     <option value="3" {% if adults == '3' %}selected{% endif %}>3</option>
@@ -824,7 +825,7 @@
                                     <option value="17" {% if adults == '17' %}selected{% endif %}>17</option>
                                     <option value="18" {% if adults == '18' %}selected{% endif %}>18</option>
                                     <option value="19" {% if adults == '19' %}selected{% endif %}>19</option>
-                                    <option value="20" {% if adults == '20' or not adults %}selected{% endif %}>20</option>
+                                    <option value="20" {% if adults == '20' %}selected{% endif %}>20</option>
                                 </select>
                             </div>
                             <div>
@@ -904,7 +905,7 @@
                     <!-- 3. جناح مفروش -->
                     <a href="{% url 'home' %}?unit_id=3#unit-detail" class="unit-card" style="text-decoration: none; color: inherit;">
                         <div class="unit-image-wrapper">
-                            <div class="unit-image" style="background-image: url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                            <div class="unit-image" style="background-image: url('/media/jnah.png');"></div>
                             <span class="unit-badge">جناح متكامل</span>
                         </div>
                         <div class="unit-body">

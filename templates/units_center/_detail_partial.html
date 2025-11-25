@@ -167,19 +167,23 @@
             position: relative;
             overflow: hidden;
             border-radius: 20px;
+            height: 420px; /* ارتفاع أكبر لتوضيح الغرفة */
         }
 
-        .gallery-main img {
+        .gallery-main img,
+        .gallery-main video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* تعبئة الإطار مع المحافظة على التصميم المتناسق */
+            object-position: center center; /* نضع مركز الغرفة في المنتصف */
             display: block;
+            border-radius: 20px;
         }
 
         .gallery-side {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            grid-auto-rows: 1fr;
+            grid-auto-rows: 190px;
             gap: 0.6rem;
         }
 
@@ -187,6 +191,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center center;
             border-radius: 12px;
             display: block;
         }
@@ -811,7 +816,7 @@
                 {% elif unit_id == '5' %}
                     الجناح الملكي الفاخر
                 {% else %}
-                    شقة C11 بإطلالة مميزة في واجهة نجران للوحدات السكنية
+                    بإطلالة مميزة في واجهة نجران للوحدات السكنية
                 {% endif %}
             </h1>
             <div class="listing-subtitle">نجران، المملكة العربية السعودية · 1 شقة مفروشة · 4 ضيوف · 1 غرفة نوم · 1 سرير · 1 حمام</div>
@@ -827,13 +832,41 @@
 
         <section class="gallery" aria-label="معرض صور الوحدة">
             <div class="gallery-main">
-                <img src="https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="صورة رئيسية لغرفة المعيشة" />
+                {% if unit_id == '1' %}
+                    <img src="/media/sarer2.png" alt="غرفة ديلوكس سرير كينج" />
+                {% elif unit_id == '2' %}
+                    <img src="/media/mnfsl2.png" alt="غرفة ديلوكس فردية" />
+                {% elif unit_id == '3' %}
+                    <img src="/media/jnah.png" alt="جناح غرفة وصالة" />
+                {% elif unit_id == '4' %}
+                    <img src="https://images.pexels.com/photos/7511709/pexels-photo-7511709.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="شقة غرفتين وصالة" />
+                {% elif unit_id == '5' %}
+                    <video src="/media/mlkyvido.mp4" controls autoplay muted loop playsinline aria-label="فيديو الجناح الملكي الفاخر"></video>
+                {% endif %}
             </div>
             <div class="gallery-side">
-                <img src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="غرفة النوم" />
-                <img src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800" alt="منطقة الجلوس" />
-                <img src="https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?auto=compress&cs=tinysrgb&w=800" alt="مسبح أو إطلالة" />
-                <img src="https://images.pexels.com/photos/1571462/pexels-photo-1571462.jpeg?auto=compress&cs=tinysrgb&w=800" alt="تفاصيل داخلية" />
+                {% if unit_id == '1' %}
+                    <img src="/media/sarer3.png" alt="مدخل واستقبال الشقة" />
+                    <img src="/media/sarer4.png" alt="دورة مياه حديثة" />
+                    <img src="/media/sarer5.png" alt="منطقة المطبخ والطعام" />
+                {% elif unit_id == '2' %}
+                    <img src="/media/mnfsl3.png" alt="سرير الغرفة" />
+                    <img src="/media/mnfsl.png" alt="منطقة الجلوس" />
+                    <img src="/media/mnfsl.png" alt="تفاصيل الغرفة" />
+                {% elif unit_id == '3' %}
+                    <img src="/media/jnah1.png" alt="منطقة المعيشة" />
+                    <img src="/media/jnah2.png" alt="منطقة النوم" />
+                    <img src="/media/jnah3.png" alt="تفاصيل الجناح" />
+                {% elif unit_id == '4' %}
+                    <img src="https://images.pexels.com/photos/7511713/pexels-photo-7511713.jpeg?auto=compress&cs=tinysrgb&w=800" alt="غرفة النوم الأولى" />
+                    <img src="https://images.pexels.com/photos/7511710/pexels-photo-7511710.jpeg?auto=compress&cs=tinysrgb&w=800" alt="غرفة النوم الثانية" />
+                    <img src="https://images.pexels.com/photos/7511707/pexels-photo-7511707.jpeg?auto=compress&cs=tinysrgb&w=800" alt="منطقة الجلوس" />
+                {% elif unit_id == '5' %}
+                    <img src="/media/mlky7.png" alt="سرير الجناح" />
+                    <img src="/media/mlky6.png" alt="منطقة جلوس فاخرة" />
+                    <img src="/media/mlky.png" alt="تفاصيل الجناح" />
+                    <img src="/media/mlky3.png" alt="تفاصيل الجناح" />
+                {% endif %}
             </div>
         </section>
 
@@ -938,7 +971,6 @@
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                                 <div>
                                     <div style="font-size: 0.85rem; font-weight: 500;">البالغون</div>
-                                    <div class="field-label">من عمر 13 فأكثر</div>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 0.6rem;">
                                     <button type="button" class="guest-btn" id="adults-minus" style="width: 28px; height: 28px; border-radius: 999px; border: 1px solid #ccc; background: #fff; cursor: pointer;">-</button>
@@ -949,7 +981,6 @@
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
                                     <div style="font-size: 0.85rem; font-weight: 500;">الأطفال</div>
-                                    <div class="field-label">من عمر 0-12 سنة</div>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 0.6rem;">
                                     <button type="button" class="guest-btn" id="children-minus" style="width: 28px; height: 28px; border-radius: 999px; border: 1px solid #ccc; background: #fff; cursor: pointer;">-</button>
@@ -1361,7 +1392,12 @@
                 var d1 = new Date(checkinDate);
                 var d2 = new Date(checkoutDate);
                 var diff = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
-                return diff > 0 ? diff : 0;
+                return diff;
+            }
+
+            // نستخدم هذه الدالة لعرض عدد الليالي للمستخدم (على الأقل ليلة واحدة)
+            function getDisplayNights(nights) {
+                return nights <= 0 ? 1 : nights;
             }
 
             allCells.forEach(function (cell) {
@@ -1387,10 +1423,11 @@
                             checkoutDate = cellDate;
                             checkoutDisplay.textContent = formatDateArabic(cellDate);
                             var nights = calculateNights();
-                            tripTitle.textContent = nights + ' ليالٍ في نجران';
+                            var displayNights = getDisplayNights(nights);
+                            tripTitle.textContent = displayNights + ' ليالٍ في نجران';
                             tripDates.textContent = formatDateArabic(checkinDate) + ' – ' + formatDateArabic(checkoutDate);
-                            if (nightsSummaryEl && nights > 0) {
-                                nightsSummaryEl.textContent = 'عدد ليالي الحجز: ' + nights + ' ليلة';
+                            if (nightsSummaryEl) {
+                                nightsSummaryEl.textContent = 'عدد ليالي الحجز: ' + displayNights + ' ليلة';
                             }
                             isSelectingCheckout = false;
                         } else {
@@ -1477,11 +1514,12 @@
                     checkoutDisplay.textContent = formatDateArabic(checkoutFromUrl);
                 }
                 var initialNights = calculateNights();
-                if (initialNights > 0) {
-                    tripTitle.textContent = initialNights + ' ليالٍ في نجران';
+                if (checkinDate && checkoutDate) {
+                    var displayNights = getDisplayNights(initialNights);
+                    tripTitle.textContent = displayNights + ' ليالٍ في نجران';
                     tripDates.textContent = formatDateArabic(checkinDate) + ' – ' + formatDateArabic(checkoutDate);
                     if (nightsSummaryEl) {
-                        nightsSummaryEl.textContent = 'عدد ليالي الحجز: ' + initialNights + ' ليلة';
+                        nightsSummaryEl.textContent = 'عدد ليالي الحجز: ' + displayNights + ' ليلة';
                     }
                     isSelectingCheckout = false;
                 }
