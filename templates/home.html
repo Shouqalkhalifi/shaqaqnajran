@@ -149,6 +149,25 @@
             padding: 0.5rem 0.95rem;
             font-size: 0.85rem;
             background-color: #fbf7f1;
+            color: #3b3b3b;
+        }
+
+        /* توحيد مظهر حقل التاريخ في أغلب المتصفحات */
+        .hero-input[type="date"] {
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            appearance: none;
+            text-align: center;
+            padding-inline: 0.75rem;
+            font-size: 0.9rem;
+            color: #3b3b3b;
+            letter-spacing: 0.04em;
+        }
+
+        /* إخفاء أيقونة التقويم الافتراضية في بعض المتصفحات حتى لا تكسر التصميم البيضاوي */
+        .hero-input[type="date"]::-webkit-calendar-picker-indicator {
+            opacity: 0.65;
+            cursor: pointer;
         }
 
         .hero-input:focus,
