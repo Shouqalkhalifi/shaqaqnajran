@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>واجهة نجران للوحدات السكنية</title>
+    <style>
+        :root {
+            --bg-main: #fffff8;
+            --bg-card: #ffffff;
+            --accent: #b08968;
+            --accent-dark: #7b5e57;
+            --text-main: #2b2623;
+            --muted: #7a7a7a;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #f5f3f0;
+            color: var(--text-main);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 1.75rem auto 3rem;
+            padding-inline: 1.5rem;
+        }
+
+        .hero {
+            border-radius: 26px;
+            background-color: #ffffff;
+            padding: 2.2rem 2.4rem;
+            box-shadow: 0 22px 55px rgba(15, 23, 42, 0.09);
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 2.6fr) minmax(0, 3.4fr);
+            gap: 2.4rem;
+            align-items: center;
+        }
+
+        .hero-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-card-inner {
+            width: 100%;
+            max-width: 430px;
+            background-color: #ffffff;
+            border-radius: 24px;
+            padding: 1.9rem 2rem 2.1rem;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+            transform: none;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #111827;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+            aspect-ratio: 3 / 3;
+        }
+
+        .hero-image {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            background-image: url('/media/recption.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-image::after {
+            content: none;
+        }
+
+        .hero-image-wrapper:hover .hero-image {
+            transform: scale(1.06);
+        }
+
+        .hero-overlay-tag {
+            position: absolute;
+            right: 1.4rem;
+            bottom: 1.4rem;
+            background: rgba(255, 255, 255, 0.14);
+            color: #f9fafb;
+            padding: 0.45rem 1.1rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        .hero-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-card-inner {
+            width: 100%;
+            max-width: 420px;
+            background-color: #ffffff;
+            border-radius: 22px;
+            padding: 1.8rem 1.9rem 2rem;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.12);
+        }
+
+        .hero-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.9;
+            margin-bottom: 1.3rem;
+        }
+
+        .hero-form-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-label {
+            display: block;
+            font-size: 0.78rem;
+            margin-bottom: 0.2rem;
+            color: #6b5a4a;
+        }
+
+        .hero-input,
+        .hero-select {
+            width: 100%;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            padding: 0.5rem 0.95rem;
+            font-size: 0.85rem;
+            background-color: #fbf7f1;
+        }
+
+        .hero-input:focus,
+        .hero-select:focus {
+            outline: none;
+            border-color: var(--accent-dark);
+            box-shadow: 0 0 0 1px rgba(123, 94, 87, 0.3);
+            background-color: #fff;
+        }
+
+        .hero-inline {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #5a4032, #8a6a4f);
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            padding: 0.7rem 1.7rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 0.6rem;
+            box-shadow: 0 14px 30px rgba(46, 32, 24, 0.55);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+            box-shadow: 0 18px 40px rgba(46, 32, 24, 0.65);
+        }
+
+        .section {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 1.1rem;
+        }
+
+        .units-group {
+            margin-bottom: 2.4rem;
+        }
+
+        .units-group-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .units-group-actions {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .btn-link {
+            background: #f3e4d3;
+            border-radius: 999px;
+            padding: 0.35rem 0.9rem;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+        }
+
+        .units-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .units-slider-wrapper {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .units-grid-types {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 1.4rem;
+            padding-block: 0.75rem 0.5rem;
+        }
+
+        .units-grid-types::-webkit-scrollbar {
+            display: none; /* WebKit */
+        }
+
+        .unit-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+        }
+
+        .unit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 22px 50px rgba(15, 23, 42, 0.16);
+            border-color: rgba(176, 137, 104, 0.6);
+        }
+
+        .unit-image-wrapper {
+            position: relative;
+            padding-top: 65%;
+            overflow: hidden;
+        }
+
+        .unit-image {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .unit-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .unit-badge {
+            position: absolute;
+            top: 0.9rem;
+            right: 0.9rem;
+            background-color: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+        }
+
+        .unit-body {
+            padding: 1rem 1.15rem 1.1rem;
+        }
+
+        .unit-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .unit-meta {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .unit-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            align-items: center;
+            font-size: 0.8rem;
+            margin-top: 0.4rem;
+        }
+
+        .unit-price {
+            font-weight: 700;
+            color: var(--accent-dark);
+            margin-left: auto;
+        }
+
+        .unit-tag {
+            font-size: 0.78rem;
+            padding: 0.22rem 0.7rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f3e4d3, #f9efe4);
+            color: #4a3a32;
+            white-space: nowrap;
+        }
+
+        .floating-whatsapp {
+            position: fixed;
+            right: 1.2rem;
+            bottom: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            z-index: 40;
+            direction: rtl;
+        }
+
+        .floating-whatsapp-bubble {
+            background: #25d366;
+            color: #ffffff;
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.3);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .floating-whatsapp-bubble::after {
+            content: "";
+            position: absolute;
+            right: 0.8rem;
+            bottom: -6px;
+            border-width: 6px 7px 0 7px;
+            border-style: solid;
+            border-color: #25d366 transparent transparent transparent;
+        }
+
+        .floating-whatsapp-circle {
+            width: 46px;
+            height: 46px;
+            border-radius: 999px;
+            background: #25d366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.4);
+            font-size: 1.3rem;
+        }
+
+        .floating-whatsapp-circle span {
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 768px) {
+            .floating-whatsapp {
+                right: 0.7rem;
+                bottom: 0.9rem;
+            }
+
+            .floating-whatsapp-bubble {
+                font-size: 0.75rem;
+                padding-inline: 0.8rem;
+            }
+
+            .floating-whatsapp-circle {
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+            }
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .step-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 1.1rem 1.2rem;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+            font-size: 0.9rem;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background-color: var(--accent-dark);
+            color: #fff;
+            font-size: 0.8rem;
+            margin-left: 0.4rem;
+        }
+
+        .map-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            background: #faf5ff;
+            border: 1px solid rgba(123, 94, 87, 0.25);
+            font-size: 0.8rem;
+            color: #4a3a32;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .map-button-icon {
+            position: relative;
+            width: 16px;
+            height: 20px;
+        }
+
+        .map-button-icon::before,
+        .map-button-icon::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .map-button-icon::before {
+            top: 0;
+            width: 12px;
+            height: 14px;
+            border-radius: 999px 999px 999px 999px / 999px 999px 70% 70%;
+            background: linear-gradient(180deg, #ff5f5f 0%, #e11d48 40%, #b91c1c 100%);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+        }
+
+        .map-button-icon::after {
+            top: 4px;
+            width: 5px;
+            height: 5px;
+            border-radius: 999px;
+            background-color: #7f1d1d;
+            box-shadow: 0 0 0 3px rgba(248, 250, 252, 0.7);
+            animation: map-pulse 1.8s ease-out infinite;
+        }
+
+        /* دليل المبنى */
+        .building-guide {
+            margin-top: 2.5rem;
+        }
+
+        .building-guide-layout {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .building-guide-toggle {
+            border: none;
+            padding: 0;
+            margin: 0;
+            background: transparent;
+        }
+
+        .building-guide-card {
+            background: radial-gradient(circle at top left, #fdf4d9 0, #fff8e8 40%, #ffffff 100%);
+            border-radius: 22px;
+            padding: 1.5rem 1.8rem 1.6rem;
+            box-shadow: 0 22px 45px rgba(15, 23, 42, 0.14);
+            border: 1px solid rgba(176, 137, 104, 0.35);
+        }
+
+        .building-guide-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.6rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .building-guide-title {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .building-guide-subtitle {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .building-guide-badge {
+            padding: 0.25rem 0.85rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #b08968, #7b5e57);
+            color: #fff;
+            font-size: 0.7rem;
+            white-space: nowrap;
+        }
+
+        .building-guide-table-wrapper {
+            margin-top: 0.5rem;
+        }
+
+        .building-guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(176, 137, 104, 0.4);
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 0.82rem;
+        }
+
+        .building-guide-table th,
+        .building-guide-table td {
+            padding: 0.6rem 0.9rem;
+            text-align: right;
+        }
+
+        .building-guide-table thead tr {
+            background: linear-gradient(135deg, #5a4032, #8a6a4f);
+            color: #fff;
+        }
+
+        .building-guide-table tbody tr:nth-child(odd) {
+            background-color: rgba(249, 245, 237, 0.9);
+        }
+
+        .building-guide-table tbody tr:nth-child(even) {
+            background-color: rgba(255, 252, 246, 0.9);
+        }
+
+        .building-guide-level {
+            font-weight: 600;
+        }
+
+        .building-guide-note {
+            margin-top: 0.8rem;
+            font-size: 0.78rem;
+            color: #7b5e57;
+            text-align: left;
+        }
+
+        /* شاشات التابلت والهواتف */
+        @media (max-width: 900px) {
+            main {
+                padding-inline: 1rem;
+            }
+
+            .hero {
+                padding: 1.4rem 1.1rem 1.6rem;
+            }
+
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1.1rem;
+            }
+
+            .hero-card-inner {
+                max-width: 100%;
+            }
+
+            .hero-image {
+                min-height: 220px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .units-grid-types {
+                padding-inline: 1.2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .units-grid-types {
+                padding-inline: 0.8rem;
+            }
+        }
+
+        /* شاشات الهواتف الصغيرة جداً */
+        @media (max-width: 480px) {
+            main {
+                margin-top: 1.2rem;
+            }
+
+            .hero {
+                border-radius: 0;
+                padding-inline: 0.6rem;
+            }
+
+            .hero-card-inner {
+                padding: 1.3rem 1.2rem 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 1.1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.82rem;
+            }
+        }
+
+        /* تحسينات حديثة للتصميم العام والبطاقات والسلايدر */
+        body {
+            background: radial-gradient(circle at top left, #f9f5f0 0, #f5f3f0 45%, #f2eee8 100%);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2.25rem auto 3.25rem;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 28px;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .section {
+            position: relative;
+        }
+
+        #units {
+            margin-top: 3.25rem;
+        }
+
+        #units::before {
+            content: none;
+        }
+
+        .units-group-header {
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+        }
+
+        .section-subtitle {
+            max-width: 520px;
+        }
+
+        .units-slider-wrapper {
+            padding-block: 0.5rem 0.8rem;
+        }
+
+        .units-grid-types {
+            padding-inline: 0;
+        }
+
+        @media (max-width: 900px) {
+            .units-grid-types {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                padding-inline: 1.4rem;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .units-grid-types {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .units-grid-types {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 1.25rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.85rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <main>
+        <section class="hero" id="top">
+            <div class="hero-inner">
+                <div class="hero-card">
+                    <div class="hero-card-inner" aria-label="نموذج البحث عن وحدة سكنية">
+                        <h1 class="hero-title">ابحث عن مكان إقامة مميز في واجهة نجران للوحدات السكنية</h1>
+                        <p class="hero-subtitle">
+                            حدّد تواريخ الوصول والمغادرة، وعدد النزلاء، ثم أرسل طلبك
+                            ليتم التواصل معك عبر الواتساب لتأكيد الحجز.
+                        </p>
+                        <p class="hero-subtitle" style="font-size: 0.82rem; margin-top: 0.1rem;">
+                            يمكنكم أيضًا مشاهدة موقع واجهة نجران للوحدات السكنية على الخريطة:
+                            <a href="https://maps.app.goo.gl/MjHQBGEtDtytj82B7" target="_blank" rel="noopener" class="map-button">
+                                <span class="map-button-icon" aria-hidden="true"></span>
+                                <span>عرض الموقع على خرائط جوجل</span>
+                            </a>
+                        </p>
+
+                        <div class="hero-form-group">
+                            <label class="hero-label" for="location">الموقع</label>
+                            <div id="location" class="hero-select" style="display: flex; align-items: center;">
+                                <span style="flex: 1;">نجران، المملكة العربية السعودية</span>
+                            </div>
+                        </div>
+
+                        <div class="hero-form-group hero-inline">
+                            <div>
+                                <label class="hero-label" for="checkin">تسجيل الوصول</label>
+                                <input id="checkin" name="checkin" type="date" class="hero-input" value="{{ checkin }}" />
+                            </div>
+                            <div>
+                                <label class="hero-label" for="checkout">تسجيل المغادرة</label>
+                                <input id="checkout" name="checkout" type="date" class="hero-input" value="{{ checkout }}" />
+                            </div>
+                        </div>
+
+                        <div class="hero-form-group hero-inline">
+                            <div>
+                                <label class="hero-label" for="adults">البالغون</label>
+                                <select id="adults" name="adults" class="hero-select">
+                                    <option value="1" {% if adults == '1' %}selected{% endif %}>1</option>
+                                    <option value="2" {% if adults == '2' %}selected{% endif %}>2</option>
+                                    <option value="3" {% if adults == '3' %}selected{% endif %}>3</option>
+                                    <option value="4" {% if adults == '4' %}selected{% endif %}>4</option>
+                                    <option value="5" {% if adults == '5' %}selected{% endif %}>5</option>
+                                    <option value="6" {% if adults == '6' %}selected{% endif %}>6</option>
+                                    <option value="7" {% if adults == '7' %}selected{% endif %}>7</option>
+                                    <option value="8" {% if adults == '8' %}selected{% endif %}>8</option>
+                                    <option value="9" {% if adults == '9' %}selected{% endif %}>9</option>
+                                    <option value="10" {% if adults == '10' %}selected{% endif %}>10</option>
+                                    <option value="11" {% if adults == '11' %}selected{% endif %}>11</option>
+                                    <option value="12" {% if adults == '12' %}selected{% endif %}>12</option>
+                                    <option value="13" {% if adults == '13' %}selected{% endif %}>13</option>
+                                    <option value="14" {% if adults == '14' %}selected{% endif %}>14</option>
+                                    <option value="15" {% if adults == '15' %}selected{% endif %}>15</option>
+                                    <option value="16" {% if adults == '16' %}selected{% endif %}>16</option>
+                                    <option value="17" {% if adults == '17' %}selected{% endif %}>17</option>
+                                    <option value="18" {% if adults == '18' %}selected{% endif %}>18</option>
+                                    <option value="19" {% if adults == '19' %}selected{% endif %}>19</option>
+                                    <option value="20" {% if adults == '20' or not adults %}selected{% endif %}>20</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="hero-label" for="children">الأطفال</label>
+                                <select id="children" name="children" class="hero-select">
+                                    <option value="0" {% if children == '0' or not children %}selected{% endif %}>0</option>
+                                    <option value="1" {% if children == '1' %}selected{% endif %}>1</option>
+                                    <option value="2" {% if children == '2' %}selected{% endif %}>2</option>
+                                    <option value="3" {% if children == '3' %}selected{% endif %}>3</option>
+                                    <option value="4" {% if children == '4' %}selected{% endif %}>4</option>
+                                    <option value="5" {% if children == '5' %}selected{% endif %}>5</option>
+                                    <option value="6" {% if children == '6' %}selected{% endif %}>6</option>
+                                    <option value="7" {% if children == '7' %}selected{% endif %}>7</option>
+                                    <option value="8" {% if children == '8' %}selected{% endif %}>8</option>
+                                    <option value="9" {% if children == '9' %}selected{% endif %}>9</option>
+                                    <option value="10" {% if children == '10' %}selected{% endif %}>10</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary" type="button" onclick="scrollToSection('units')">بحث عن وحدة مناسبة</button>
+                    </div>
+                </div>
+
+                <div class="hero-image-wrapper">
+                    <div class="hero-image" aria-hidden="true"></div>
+                    <div class="hero-overlay-tag">لقطات من وحدات نجران المفروشة</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="units">
+            <div class="units-group">
+                <div class="units-group-header">
+                    <div>
+                        <h2 class="section-title">أنواع الشقق المفروشة في واجهة نجران</h2>
+                        <p class="section-subtitle">اختر النوع المناسب لك من تشكيلتنا المتنوعة من الغرف والأجنحة المفروشة بأحدث التصاميم.</p>
+                    </div>
+                </div>
+
+                <div class="units-slider-wrapper">
+                    <div class="units-grid units-grid-types">
+                    <!-- 1. غرفة ديلوكس سرير كينج -->
+                    <a href="{% url 'home' %}?unit_id=1#unit-detail" class="unit-card" style="text-decoration: none; color: inherit;">
+                        <div class="unit-image-wrapper">
+                            <div class="unit-image" style="background-image: url('/media/sarer2.png');"></div>
+                            <span class="unit-badge">غرفة فاخرة</span>
+                        </div>
+                        <div class="unit-body">
+                            <h3 class="unit-title">غرفة ديلوكس سرير كينج</h3>
+                            <p class="unit-meta">سرير كينج مزدوج · حمام خاص · تلفاز ذكي · ميني بار</p>
+                            <div class="unit-footer">
+                                <span class="unit-tag">للأزواج</span>
+                                <span class="unit-tag">للأفراد</span>
+                                <span class="unit-tag">للعائلات</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 2. غرفة ديلوكس فردية -->
+                    <a href="{% url 'home' %}?unit_id=2#unit-detail" class="unit-card" style="text-decoration: none; color: inherit;">
+                        <div class="unit-image-wrapper">
+                            <div class="unit-image" style="background-image: url('/media/mnfsl.png');"></div>
+                            <span class="unit-badge">غرفة مريحة</span>
+                        </div>
+                        <div class="unit-body">
+                            <h3 class="unit-title">غرفة ديلوكس فردية (سريرين منفصلين)</h3>
+                            <p class="unit-meta">سريران مفردان · حمام خاص · طاولة عمل · خزنة</p>
+                            <div class="unit-footer">
+                                <span class="unit-tag">للأفراد</span>
+                                <span class="unit-tag">للأزواج</span>
+                                <span class="unit-tag">للعائلات</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 3. جناح مفروش -->
+                    <a href="{% url 'home' %}?unit_id=3#unit-detail" class="unit-card" style="text-decoration: none; color: inherit;">
+                        <div class="unit-image-wrapper">
+                            <div class="unit-image" style="background-image: url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                            <span class="unit-badge">جناح متكامل</span>
+                        </div>
+                        <div class="unit-body">
+                            <h3 class="unit-title">جناح مفروش</h3>
+                            <p class="unit-meta">غرفة نوم · صالة · دورة مياه · مطبخ مجهز</p>
+                            <div class="unit-footer">
+                                <span class="unit-tag">للأزواج</span>
+                                <span class="unit-tag">للعائلات</span>
+                                <span class="unit-tag">للأفراد</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 4. شقة غرفتين وصالة -->
+                    <a href="{% url 'home' %}?unit_id=4#unit-detail" class="unit-card" style="text-decoration: none; color: inherit;">
+                        <div class="unit-image-wrapper">
+                            <div class="unit-image" style="background-image: url('https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                            <span class="unit-badge">مساحة رحبة</span>
+                        </div>
+                        <div class="unit-body">
+                            <h3 class="unit-title">شقة غرفتين وصالة</h3>
+                            <p class="unit-meta">غرفتي نوم · صالة واسعة · حمامان · مطبخ كامل</p>
+                            <div class="unit-footer">
+                                <span class="unit-tag">للأزواج</span>
+                                <span class="unit-tag">للعائلات</span>
+                                <span class="unit-tag">للأفراد</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 5. الجناح الملكي -->
+                    <a href="{% url 'home' %}?unit_id=5#unit-detail" class="unit-card" style="text-decoration: none; color: inherit;">
+                        <div class="unit-image-wrapper">
+                            <div class="unit-image" style="background-image: url('https://images.pexels.com/photos/1743231/pexels-photo-1743231.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                            <span class="unit-badge">جناح ملكي</span>
+                        </div>
+                        <div class="unit-body">
+                            <h3 class="unit-title">الجناح الملكي الفاخر</h3>
+                            <p class="unit-meta">3 غرف ماستر · صالة VIP · مطبخ راقي · تراس خاص</p>
+                            <div class="unit-footer">
+                                <span class="unit-tag">الأفخم</span>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% if selected_unit_id %}
+        <section class="section" id="unit-detail">
+            {% include "units_center/_detail_partial.html" with unit_id=selected_unit_id %}
+        </section>
+        {% endif %}
+
+        <section class="section" id="how-it-works">
+            <h2 class="section-title">كيف يتم الحجز عبر واجهة نجران؟</h2>
+            <div class="steps">
+                <div class="step-card">
+                    <div><span class="step-number">1</span>اختيار الوحدة المناسبة</div>
+                    <p>
+                        تصفّح الوحدات السكنية في الموقع، واختر الوحدة التي تناسبك من حيث الموقع، السعر، وعدد الغرف.
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div><span class="step-number">2</span>إرسال طلب الحجز</div>
+                    <p>
+                        أرسل طلب الحجز مع تاريخ الوصول والمغادرة وبيانات التواصل الخاصة بك من خلال النموذج في الموقع.
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div><span class="step-number">3</span>التواصل عبر الواتساب</div>
+                    <p>
+                        تصل تفاصيل الطلب إلى رقم الواتساب المخصّص، ويتم التواصل معك للتأكيد النهائي وطريقة الدفع المناسبة.
+                    </p>
+                </div>
+            </div>
+        </section>
+         <section class="section building-guide" id="building-guide">
+            <div class="building-guide-layout">
+                <details class="building-guide-toggle">
+                    <summary>
+                        <div class="building-guide-card" aria-label="دليل المبنى">
+                            <div class="building-guide-header">
+                                <div>
+                                    <div class="building-guide-title">Building Guide · دليل المبنى</div>
+                                    <div class="building-guide-subtitle">
+                                        توزيع الأجنحة والأدوار في واجهة نجران للوحدات السكنية
+                                    </div>
+                                </div>
+                                <span class="building-guide-badge">
+                                    Suites & Floors
+                                </span>
+                            </div>
+                        </div>
+                    </summary>
+
+                    <div class="building-guide-card" style="margin-top: 0.75rem;">
+                        <div class="building-guide-table-wrapper">
+                            <table class="building-guide-table">
+                                <thead>
+                                    <tr>
+                                        <th>الدور / Floor</th>
+                                        <th>الوصف / Area</th>
+                                        <th style="text-align:center;">رمز</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="building-guide-level">الدور الرابع 4</td>
+                                        <td>الضيافة · الجناح الملكي 501</td>
+                                        <td style="text-align:center;">4</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="building-guide-level">الدور الثالث 3</td>
+                                        <td>الأجنحة · Suites 401 – 413</td>
+                                        <td style="text-align:center;">3</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="building-guide-level">الدور الثاني 2</td>
+                                        <td>الأجنحة · Suites 301 – 313</td>
+                                        <td style="text-align:center;">2</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="building-guide-level">الدور الأول 1</td>
+                                        <td>الأجنحة · Suites 201 – 213</td>
+                                        <td style="text-align:center;">1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="building-guide-level">الدور الأرضي G</td>
+                                        <td>
+                                            الأجنحة · Suites 101 – 110<br>
+                                            الاستقبال – كوفي شاي – صالة انتظار – المصلى
+                                        </td>
+                                        <td style="text-align:center;">G</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="building-guide-note">
+                            نتمنى لكم طيب الإقامة في واجهة نجران للوحدات السكنية.
+                        </p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    {% include 'footer.html' %}
+
+    <a href="https://wa.me/966553873504" class="floating-whatsapp" target="_blank" rel="noopener" aria-label="التواصل عبر الواتساب مع واجهة نجران">
+        <div class="floating-whatsapp-bubble">تواصل معنا عبر الواتساب</div>
+    </a>
+
+    <script>
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        (function () {
+            // سلايدر تلقائي لصورة الهيرو
+            var heroEl = document.querySelector('.hero-image');
+            if (heroEl) {
+                var heroImages = [
+                    '/media/recption.png',
+                    '/media/mmar.png',
+                    '/media/msla.png',
+                    '/media/recption1.png'
+                ];
+                var heroIndex = 0;
+                var heroInterval = 3000; // 5 ثواني بين كل صورة
+
+                function updateHeroBackground() {
+                    heroEl.style.backgroundImage = 'url("' + heroImages[heroIndex] + '")';
+                    heroIndex = (heroIndex + 1) % heroImages.length;
+                }
+
+                updateHeroBackground();
+                setInterval(updateHeroBackground, heroInterval);
+            }
+
+            // تمرير تواريخ البحث وعدد النزلاء إلى صفحة التفاصيل عبر الرابط
+            var unitCards = document.querySelectorAll('.units-grid-types .unit-card');
+            if (!unitCards || unitCards.length === 0) return;
+
+            unitCards.forEach(function (card) {
+                card.addEventListener('click', function () {
+                    var checkinInput = document.getElementById('checkin');
+                    var checkoutInput = document.getElementById('checkout');
+                    var adultsSelect = document.getElementById('adults');
+                    var childrenSelect = document.getElementById('children');
+
+                    if (!checkinInput || !checkoutInput || !adultsSelect || !childrenSelect) {
+                        return;
+                    }
+
+                    var checkin = checkinInput.value || '';
+                    var checkout = checkoutInput.value || '';
+                    var adults = adultsSelect.value || '';
+                    var children = childrenSelect.value || '';
+
+                    var baseHref = card.getAttribute('href');
+                    if (!baseHref) return;
+
+                    var params = new URLSearchParams();
+                    if (checkin) params.set('checkin', checkin);
+                    if (checkout) params.set('checkout', checkout);
+                    if (adults) params.set('adults', adults);
+                    if (children) params.set('children', children);
+
+                    if (params.toString()) {
+                        // نفصل الجزء الخاص بالـ query عن الجزء الخاص بالـ hash (#unit-detail)
+                        var hashIndex = baseHref.indexOf('#');
+                        var urlPart = hashIndex >= 0 ? baseHref.substring(0, hashIndex) : baseHref;
+                        var hashPart = hashIndex >= 0 ? baseHref.substring(hashIndex) : '';
+
+                        var separator = urlPart.includes('?') ? '&' : '?';
+                        var newHref = urlPart + separator + params.toString() + hashPart;
+                        card.setAttribute('href', newHref);
+                    }
+                });
+            });
+
+            // منطق السلايدر (تحريك تلقائي يمين/يسار بدون أسهم)
+            var slider = document.querySelector('.units-grid-types');
+            if (!slider) return;
+
+            var cardWidth = 260 + 20; // عرض البطاقة + مسافة تقريبية
+            var autoSlideInterval = 3500;
+            var direction = 1;
+
+            function slideBy(delta) {
+                slider.scrollLeft += delta;
+            }
+
+            function autoSlide() {
+                var maxScroll = slider.scrollWidth - slider.clientWidth;
+                if (maxScroll <= 0) return;
+
+                if (slider.scrollLeft >= maxScroll - 5) {
+                    direction = -1;
+                } else if (slider.scrollLeft <= 5) {
+                    direction = 1;
+                }
+                slideBy(direction * cardWidth);
+            }
+
+            var timer = setInterval(autoSlide, autoSlideInterval);
+
+            // إيقاف التحريك عند مرور الماوس ثم استئنافه عند الخروج
+            slider.addEventListener('mouseenter', function () {
+                clearInterval(timer);
+            });
+
+            slider.addEventListener('mouseleave', function () {
+                timer = setInterval(autoSlide, autoSlideInterval);
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>تواصل معنا - واجهة نجران للوحدات السكنية</title>
+    {% comment %} تصميم بسيط متناسق مع الصفحة الرئيسية {% endcomment %}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #f9f5f0 0, #f5f3f0 45%, #f2eee8 100%);
+            color: #2b2623;
+        }
+
+        main {
+            max-width: 880px;
+            margin: 2.5rem auto 3rem;
+            padding-inline: 1.5rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page-card {
+            background-color: #ffffff;
+            border-radius: 22px;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+            padding: 1.9rem 2rem 2.1rem;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .page-subtitle {
+            font-size: 0.9rem;
+            color: #7a7a7a;
+            margin-bottom: 1.4rem;
+            line-height: 1.8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.9rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: #6b5a4a;
+        }
+
+        input,
+        select,
+        textarea {
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            padding: 0.55rem 0.85rem;
+            font-size: 0.9rem;
+            background-color: #fbf7f1;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #7b5e57;
+            box-shadow: 0 0 0 1px rgba(123, 94, 87, 0.25);
+            background-color: #ffffff;
+        }
+
+        textarea {
+            min-height: 120px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            background: linear-gradient(135deg, #5a4032, #8a6a4f);
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            padding: 0.65rem 1.6rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 0.6rem;
+            box-shadow: 0 14px 30px rgba(46, 32, 24, 0.55);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+            box-shadow: 0 18px 40px rgba(46, 32, 24, 0.65);
+        }
+
+        .hint-text {
+            font-size: 0.8rem;
+            color: #9a8f84;
+            margin-top: 0.25rem;
+        }
+
+        .map-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            background: #faf5ff;
+            border: 1px solid rgba(123, 94, 87, 0.25);
+            font-size: 0.82rem;
+            color: #4a3a32;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .map-button-icon {
+            position: relative;
+            width: 16px;
+            height: 20px;
+        }
+
+        .map-button-icon::before,
+        .map-button-icon::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* جسم الـ Pin */
+        .map-button-icon::before {
+            top: 0;
+            width: 12px;
+            height: 14px;
+            border-radius: 999px 999px 999px 999px / 999px 999px 70% 70%;
+            background: linear-gradient(180deg, #ff5f5f 0%, #e11d48 40%, #b91c1c 100%);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+        }
+
+        /* النقطة الداخلية */
+        .map-button-icon::after {
+            top: 4px;
+            width: 5px;
+            height: 5px;
+            border-radius: 999px;
+            background-color: #7f1d1d;
+            box-shadow: 0 0 0 3px rgba(248, 250, 252, 0.7);
+            animation: map-pulse 1.8s ease-out infinite;
+        }
+
+        @keyframes map-pulse {
+            0% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+            70% {
+                transform: translateX(-50%) scale(1.8);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(-50%) scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        /* شاشات متوسطة (تابلت وهواتف كبيرة) */
+        @media (max-width: 900px) {
+            main {
+                max-width: 100%;
+                margin-top: 2rem;
+                padding-inline: 1.25rem;
+            }
+        }
+
+        /* شاشات الهواتف العادية والطولية */
+        @media (max-width: 600px) {
+            main {
+                margin-top: 1.6rem;
+                margin-bottom: 2.4rem;
+                padding-inline: 1rem;
+            }
+
+            .page-card {
+                border-radius: 18px;
+                padding: 1.5rem 1.35rem 1.7rem;
+                box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+            }
+
+            .page-title {
+                font-size: 1.2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        /* وضع الجوال العرضي أو الشاشات المستطيلة منخفضة الارتفاع */
+        @media (max-height: 500px) and (max-width: 900px) {
+            main {
+                margin-top: 1.2rem;
+                margin-bottom: 1.6rem;
+            }
+
+            .page-card {
+                border-radius: 16px;
+                padding: 1.3rem 1.2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <main>
+        <section class="page-card">
+            <h1 class="page-title">تواصل معنا بخصوص حجز أو استفسار عن شقة</h1>
+            <p class="page-subtitle">
+                املأ البيانات التالية ليتواصل معك فريق واجهة نجران للوحدات السكنية حول الشقة التي ترغب في حجزها أو الاستفسار عنها.
+            </p>
+            <p class="page-subtitle" style="font-size: 0.85rem; margin-top: 0.1rem;">
+                يمكنكم أيضًا الاطلاع على موقع واجهة نجران للوحدات السكنية على الخريطة:
+                <a href="https://maps.app.goo.gl/MjHQBGEtDtytj82B7" target="_blank" rel="noopener" class="map-button">
+                    <span class="map-button-icon" aria-hidden="true"></span>
+                    <span>عرض الموقع على خرائط جوجل</span>
+                </a>
+            </p>
+
+            <form id="contact-form">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">الاسم الكامل</label>
+                        <input id="name" name="name" type="text" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">رقم الجوال</label>
+                        <input id="phone" name="phone" type="tel" required />
+                        <div class="hint-text">مثال: 05XXXXXXXX</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unit">نوع الشقة / الوحدة</label>
+                        <select id="unit" name="unit">
+                            <option value="">اختر النوع (اختياري)</option>
+                            <option>غرفة ديلوكس سرير كينج</option>
+                            <option>غرفة ديلوكس فردية</option>
+                            <option>جناح مفروش</option>
+                            <option>شقة غرفتين وصالة</option>
+                            <option>الجناح الملكي</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dates">تواريخ الإقامة (إن وجدت)</label>
+                        <input id="dates" name="dates" type="text" placeholder="مثال: من 10 مارس إلى 12 مارس" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">تفاصيل الطلب أو الاستفسار</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+
+                <button type="button" id="whatsapp-send" class="btn-primary">إرسال الطلب عبر الواتساب</button>
+            </form>
+        </section>
+    </main>
+
+    {% include 'footer.html' %}
+
+    <script>
+        (function () {
+            var btn = document.getElementById('whatsapp-send');
+            if (!btn) return;
+
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                var name = document.getElementById('name')?.value || '';
+                var phone = document.getElementById('phone')?.value || '';
+                var unit = document.getElementById('unit')?.value || '';
+                var dates = document.getElementById('dates')?.value || '';
+                var messageField = document.getElementById('message')?.value || '';
+                var whatsappNumber = '966553873504';
+
+                var text =
+                    'طلب حجز / استفسار عن شقة من موقع واجهة نجران:\n\n' +
+                    'الاسم: ' + name + '\n' +
+                    'رقم الجوال: ' + phone + '\n' +
+                    'نوع الشقة / الوحدة: ' + (unit || 'غير محدد') + '\n' +
+                    'تواريخ الإقامة: ' + (dates || 'غير محددة') + '\n' +
+                    'التفاصيل: ' + messageField;
+
+                var url = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(text);
+                window.open(url, '_blank');
+            });
+        })();
+    </script>
+</body>
+</html>

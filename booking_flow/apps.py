@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class BookingFlowConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'booking_flow'
+    verbose_name = 'إدارة الحجوزات'

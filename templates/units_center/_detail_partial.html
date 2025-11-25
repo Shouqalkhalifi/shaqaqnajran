@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>شقة C11 بإطلالة مميزة - واجهة نجران للوحدات السكنية</title>
+    <!-- نفس تصميم صفحة التفاصيل السابقة من collections.html منسوخ هنا -->
+    <style>
+        :root {
+            --bg-main: #fffff8;
+            --bg-card: #ffffff;
+            --accent: #b08968;
+            --accent-dark: #7b5e57;
+            --text-main: #2b2623;
+            --muted: #7a7a7a;
+            --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page-shell {
+            max-width: 1200px;
+            margin: 1.8rem auto 3rem;
+            padding-inline: 1.5rem;
+            position: relative;
+        }
+
+        .detail-close-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #5a4032, #8a6a4f);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.3);
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+            z-index: 5;
+        }
+
+        .detail-close-btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.4);
+        }
+
+        .detail-close-btn:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.9);
+            outline-offset: 2px;
+        }
+
+        .detail-close-icon {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        @media (max-width: 768px) {
+            .page-shell {
+                margin-top: 1.3rem;
+                padding-inline: 1.1rem;
+            }
+
+            .detail-close-btn {
+                top: 0.7rem;
+                left: 0.7rem;
+                width: 34px;
+                height: 34px;
+                box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
+            }
+
+            .detail-close-icon {
+                font-size: 1rem;
+            }
+        }
+
+        .back-link {
+            font-size: 0.85rem;
+            margin-bottom: 0.35rem;
+            color: var(--muted);
+        }
+
+        .back-link a {
+            text-decoration: underline;
+        }
+
+        .title-row {
+            margin-bottom: 0.4rem;
+        }
+
+        .listing-title {
+            font-size: 1.5rem;
+            font-weight: 750;
+        }
+
+        .listing-subtitle {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .top-meta-bar {
+            margin-top: 0.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.6rem 1.2rem;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.18rem 0.65rem;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .meta-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .gallery {
+            margin-top: 1.2rem;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+            gap: 0.6rem;
+        }
+
+        .gallery-main {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-side {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-auto-rows: 1fr;
+            gap: 0.6rem;
+        }
+
+        .gallery-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .content-row {
+            margin-top: 1.6rem;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+            gap: 1.8rem;
+            align-items: flex-start;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow-soft);
+            padding: 1.2rem 1.3rem 1.4rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .card h2 {
+            font-size: 1.05rem;
+            margin-top: 0;
+            margin-bottom: 0.6rem;
+        }
+
+        .meta-row {
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin-bottom: 0.9rem;
+        }
+
+        .meta-row span + span::before {
+            content: " · ";
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .features-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .price-card {
+            position: sticky;
+            top: 1.2rem;
+        }
+
+        .price-row {
+            font-size: 0.95rem;
+            margin-bottom: 0.15rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+        }
+
+        .price-row strong {
+            font-size: 1.3rem;
+        }
+
+        .price-note {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-bottom: 0.45rem;
+        }
+
+        .nights-summary {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .muted-text {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .mini-form {
+            margin-top: 0.6rem;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 0, 0, 0.16);
+            overflow: hidden;
+        }
+
+        .mini-form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .mini-form-field {
+            padding: 0.5rem 0.7rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .mini-form-field + .mini-form-field {
+            border-inline-start: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .field-label {
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+
+        .field-value {
+            font-size: 0.85rem;
+        }
+
+        .mini-guests {
+            padding: 0.5rem 0.7rem;
+            font-size: 0.85rem;
+        }
+
+        .primary-button {
+            margin-top: 0.8rem;
+            width: 100%;
+            border: none;
+            border-radius: 999px;
+            padding: 0.7rem 1.4rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            background: linear-gradient(135deg, #5a4032, #8a6a4f);
+            color: #fff;
+            box-shadow: 0 12px 28px rgba(46, 32, 24, 0.5);
+        }
+
+        .info-grid {
+            margin-top: 1.6rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .info-item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-item-text {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .host-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .host-avatar {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            color: #ffc107; /* نجوم صفراء */
+            font-size: 1.1rem;
+        }
+
+        .amenities-section {
+            margin-top: 2.4rem;
+        }
+
+        .amenities-card {
+            background: #fdfaf4;
+            border-radius: 20px;
+            padding: 1.2rem 1.3rem 1.3rem;
+            border: 1px solid rgba(176, 137, 104, 0.15);
+        }
+
+        .amenities-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .amenities-intro {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0.8rem;
+        }
+
+        .amenities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .amenity-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        .amenities-link {
+            margin-top: 1.1rem;
+            font-size: 0.82rem;
+            border: none;
+            cursor: pointer;
+            padding: 0.45rem 1.1rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #5a4032, #8a6a4f);
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(46, 32, 24, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+        }
+
+        .amenities-link:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+            box-shadow: 0 12px 26px rgba(46, 32, 24, 0.45);
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .modal-backdrop.is-open {
+            display: flex;
+        }
+
+        .modal {
+            background: #ffffff;
+            border-radius: 20px;
+            max-width: 640px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 1.5rem 1.7rem 1.6rem;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.9rem;
+        }
+
+        .modal-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            border: none;
+            background: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .modal-section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .modal-amenity-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .modal-amenity-list li {
+            padding: 0.25rem 0;
+        }
+
+        .dates-layout {
+            display: none;
+            margin-top: 0;
+        }
+
+        .calendar-shell {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.2rem 1.4rem 1.4rem;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .calendar-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.6rem;
+            font-size: 0.86rem;
+        }
+
+        .calendar-trip-title {
+            font-weight: 600;
+        }
+
+        .calendar-trip-sub {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .calendar-months {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.2rem;
+            font-size: 0.78rem;
+        }
+
+        .calendar-month-name {
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.15rem;
+            text-align: center;
+        }
+
+        .calendar-day-label {
+            font-size: 0.72rem;
+            color: var(--muted);
+        }
+
+        .calendar-cell {
+            padding: 0.25rem 0;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .calendar-cell:hover:not(.calendar-cell-muted):not(.calendar-cell-disabled) {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .calendar-cell-muted {
+            color: #c0c0c0;
+        }
+
+        .calendar-cell-active {
+            background: #000;
+            color: #fff;
+        }
+
+        .calendar-cell-range {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .calendar-cell-disabled {
+            color: #e0e0e0;
+            cursor: not-allowed;
+        }
+
+        .calendar-footer-link {
+            margin-top: 0.7rem;
+            font-size: 0.78rem;
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .time-picker-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .time-picker-modal.is-open {
+            display: flex;
+        }
+
+        .time-picker-content {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+        }
+
+        .time-picker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .time-picker-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .time-picker-close {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .time-slot {
+            padding: 0.6rem;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.15s ease;
+            background: #f9f9f9;
+        }
+
+        .time-slot:hover {
+            background: rgba(176, 137, 104, 0.1);
+            border-color: var(--accent);
+        }
+
+        .time-slot.selected {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .rating-section {
+            display: none;
+        }
+
+        .rating-score {
+            font-size: 2.7rem;
+            font-weight: 700;
+        }
+
+        .rating-title {
+            margin-top: 0.3rem;
+            font-weight: 600;
+        }
+
+        .rating-text {
+            margin-top: 0.25rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        footer.page-footer {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .dates-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .gallery {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .content-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .price-card {
+                position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page-shell {
+                padding-inline: 1rem;
+            }
+
+            .gallery-side {
+                display: none;
+            }
+        }
+
+        /* دليل المبنى - نفس تصميم الصفحة الرئيسية */
+        .building-guide {
+            margin-top: 2.5rem;
+        }
+
+        .building-guide-layout {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .building-guide-toggle {
+            border: none;
+            padding: 0;
+            margin: 0;
+            background: transparent;
+        }
+
+        .building-guide-card {
+            background: radial-gradient(circle at top left, #fdf4d9 0, #fff8e8 40%, #ffffff 100%);
+            border-radius: 22px;
+            padding: 1.5rem 1.8rem 1.6rem;
+            box-shadow: 0 22px 45px rgba(15, 23, 42, 0.14);
+            border: 1px solid rgba(176, 137, 104, 0.35);
+        }
+
+        .building-guide-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.6rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .building-guide-title {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .building-guide-subtitle {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .building-guide-badge {
+            padding: 0.25rem 0.85rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #b08968, #7b5e57);
+            color: #fff;
+            font-size: 0.7rem;
+            white-space: nowrap;
+        }
+
+        .building-guide-table-wrapper {
+            margin-top: 0.5rem;
+        }
+
+        .building-guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(176, 137, 104, 0.4);
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 0.82rem;
+        }
+
+        .building-guide-table th,
+        .building-guide-table td {
+            padding: 0.6rem 0.9rem;
+            text-align: right;
+        }
+
+        .building-guide-table thead tr {
+            background: linear-gradient(135deg, #5a4032, #8a6a4f);
+            color: #fff;
+        }
+
+        .building-guide-table tbody tr:nth-child(odd) {
+            background-color: rgba(249, 245, 237, 0.9);
+        }
+
+        .building-guide-table tbody tr:nth-child(even) {
+            background-color: rgba(255, 252, 246, 0.9);
+        }
+
+        .building-guide-level {
+            font-weight: 600;
+        }
+
+        .building-guide-note {
+            margin-top: 0.8rem;
+            font-size: 0.78rem;
+            color: #7b5e57;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <a href="{% url 'home' %}#units" class="detail-close-btn" aria-label="إغلاق تفاصيل الوحدة والعودة للواجهة">
+            <span class="detail-close-icon">←</span>
+        </a>
+        <div class="title-row">
+            <h1 class="listing-title">
+                {% if unit_id == '1' %}
+                    غرفة ديلوكس سرير كينج
+                {% elif unit_id == '2' %}
+                    غرفة ديلوكس فردية (سريرين منفصلين)
+                {% elif unit_id == '3' %}
+                    جناح (غرفة وصالة ودورة مياه ومطبخ)
+                {% elif unit_id == '4' %}
+                    شقة غرفتين وصالة
+                {% elif unit_id == '5' %}
+                    الجناح الملكي الفاخر
+                {% else %}
+                    شقة C11 بإطلالة مميزة في واجهة نجران للوحدات السكنية
+                {% endif %}
+            </h1>
+            <div class="listing-subtitle">نجران، المملكة العربية السعودية · 1 شقة مفروشة · 4 ضيوف · 1 غرفة نوم · 1 سرير · 1 حمام</div>
+        </div>
+        <div class="top-meta-bar">
+            <div class="meta-pill">
+                <span>★ 5.0</span>
+                <span class="meta-dot"></span>
+                <span>مفضّل لدى الضيوف</span>
+            </div>
+            <span>حي هادئ وقريب من الخدمات الرئيسية</span>
+        </div>
+
+        <section class="gallery" aria-label="معرض صور الوحدة">
+            <div class="gallery-main">
+                <img src="https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="صورة رئيسية لغرفة المعيشة" />
+            </div>
+            <div class="gallery-side">
+                <img src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="غرفة النوم" />
+                <img src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800" alt="منطقة الجلوس" />
+                <img src="https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?auto=compress&cs=tinysrgb&w=800" alt="مسبح أو إطلالة" />
+                <img src="https://images.pexels.com/photos/1571462/pexels-photo-1571462.jpeg?auto=compress&cs=tinysrgb&w=800" alt="تفاصيل داخلية" />
+            </div>
+        </section>
+
+        <section class="content-row">
+            <div>
+                <div class="card">
+                    <h2>وصف الوحدة</h2>
+                    <div class="meta-row">
+                        <span>4 ضيوف</span>
+                        <span>1 غرفة نوم</span>
+                        <span>1 سرير</span>
+                        <span>1 حمام</span>
+                    </div>
+
+                    <ul class="features-list">
+                        {% if unit_id == '1' %}
+                            <li>غرفة ديلوكس واسعة بسرير كينج مريح وإضاءة هادئة.</li>
+                            <li>منطقة جلوس صغيرة مع تلفاز ذكي وخدمة بث.</li>
+                            <li>مرافق أساسية لإعداد المشروبات والوجبات الخفيفة.</li>
+                            <li>إنترنت فائق السرعة مثالي للأزواج أو المسافرين للأعمال.</li>
+                        {% elif unit_id == '2' %}
+                            <li>غرفة ديلوكس فردية تحتوي على سريرين منفصلين مناسبة للأفراد أو الأصدقاء.</li>
+                            <li>طاولة عمل مريحة ومساحة كافية لترتيب الأمتعة.</li>
+                            <li>حمام خاص بتجهيزات عصرية ومستحضرات أساسية.</li>
+                            <li>إنترنت سريع وتلفاز ذكي للاسترخاء بعد يوم طويل.</li>
+                        {% elif unit_id == '3' %}
+                            <li>جناح متكامل يتكون من غرفة نوم وصالة جلوس مريحة.</li>
+                            <li>مطبخ مجهز بالأدوات الأساسية لإعداد الوجبات اليومية.</li>
+                            <li>تصميم عملي يناسب العائلات الصغيرة أو الإقامات الطويلة.</li>
+                            <li>إنترنت عالي السرعة وتلفاز في منطقة الجلوس.</li>
+                        {% elif unit_id == '4' %}
+                            <li>شقة تحتوي على غرفتي نوم وصالة واسعة للعائلات.</li>
+                            <li>مساحات نوم منفصلة توفر خصوصية وراحة لجميع الأفراد.</li>
+                            <li>مطبخ كامل التجهيز مع منطقة طعام عائلية.</li>
+                            <li>مناسبة للعائلات التي تبحث عن إقامة أوسع وخصوصية أكبر.</li>
+                        {% elif unit_id == '5' %}
+                            <li>جناح ملكي فاخر بثلاث غرف ماستر وصالة VIP.</li>
+                            <li>تصميم راقٍ مع تشطيبات فاخرة وتجهيزات عالية الجودة.</li>
+                            <li>مطبخ راقي وتراس خاص لإطلالة مميزة على المدينة.</li>
+                            <li>مناسب للضيوف الباحثين عن أعلى درجات الرفاهية.</li>
+                        {% else %}
+                            <li>تصميم داخلي عصري بإضاءة هادئة وأثاث مريح.</li>
+                            <li>منطقة جلوس تطل على المدينة مع شاشة كبيرة وخدمة بث.</li>
+                            <li>مطبخ مجهز بالأدوات الأساسية لإعداد الوجبات الخفيفة.</li>
+                            <li>إنترنت فائق السرعة للعمل عن بُعد أو الترفيه.</li>
+                        {% endif %}
+                    </ul>
+
+                    <p class="muted-text">
+                        هذه الوحدة ضمن "واجهة نجران للوحدات السكنية"، مناسبة للإقامات القصيرة أو عطلة نهاية الأسبوع،
+                        مع إمكانية التواصل المباشر عبر الواتساب لتأكيد الحجز.
+                    </p>
+
+                    <div class="info-grid">
+                        <div>
+                            <div class="info-item-title">الموقع</div>
+                            <div class="info-item-text">حي هادئ وقريب من الخدمات الرئيسية في نجران.</div>
+                        </div>
+                    </div>
+
+                    <div class="host-card">
+                        <div class="host-avatar">
+                            <span class="star-icon">★</span>
+                            <span class="star-icon">★</span>
+                            <span class="star-icon">★</span>
+                        </div>
+                        <div>
+                            <div class="info-item-title">المضيف: فارس عبدالله</div>
+                            <div class="info-item-text">مضيف مميز بخبرة ٧ سنوات في استضافة الزوار في نجران.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="price-card">
+                <div class="card">
+                    <div class="price-note">يتم التأكيد عبر الواتساب.</div>
+                    <div class="nights-summary" id="nights-summary"></div>
+
+                    <div class="mini-form" aria-label="اختيار التواريخ وعدد الضيوف">
+                        <div class="mini-form-row">
+                            <div class="mini-form-field">
+                                <div class="field-label">تسجيل الوصول</div>
+                                <div class="field-value" id="checkin-display">اختر التاريخ</div>
+                            </div>
+                            <div class="mini-form-field">
+                                <div class="field-label">تسجيل المغادرة</div>
+                                <div class="field-value" id="checkout-display">اختر التاريخ</div>
+                            </div>
+                        </div>
+                        <div class="mini-form-row">
+                            <div class="mini-form-field" style="cursor: pointer;" id="open-checkin-time">
+                                <div class="field-label">وقت الوصول</div>
+                                <div class="field-value" id="checkin-time-display">الثالثة عصراً</div>
+                            </div>
+                            <div class="mini-form-field" style="cursor: pointer;" id="open-checkout-time">
+                                <div class="field-label">وقت المغادرة</div>
+                                <div class="field-value" id="checkout-time-display">الثانية عشر ظهراً</div>
+                            </div>
+                        </div>
+                        <div class="mini-guests" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-bottom: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                                <div>
+                                    <div style="font-size: 0.85rem; font-weight: 500;">البالغون</div>
+                                    <div class="field-label">من عمر 13 فأكثر</div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                                    <button type="button" class="guest-btn" id="adults-minus" style="width: 28px; height: 28px; border-radius: 999px; border: 1px solid #ccc; background: #fff; cursor: pointer;">-</button>
+                                    <span id="adults-count" style="min-width: 20px; text-align: center;">1</span>
+                                    <button type="button" class="guest-btn" id="adults-plus" style="width: 28px; height: 28px; border-radius: 999px; border: 1px solid #ccc; background: #fff; cursor: pointer;">+</button>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 0.85rem; font-weight: 500;">الأطفال</div>
+                                    <div class="field-label">من عمر 0-12 سنة</div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                                    <button type="button" class="guest-btn" id="children-minus" style="width: 28px; height: 28px; border-radius: 999px; border: 1px solid #ccc; background: #fff; cursor: pointer;">-</button>
+                                    <span id="children-count" style="min-width: 20px; text-align: center;">0</span>
+                                    <button type="button" class="guest-btn" id="children-plus" style="width: 28px; height: 28px; border-radius: 999px; border: 1px solid #ccc; background: #fff; cursor: pointer;">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 0.6rem 0.7rem; border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+                            <input type="text" id="customer-name" placeholder="الاسم الكامل" style="width: 100%; border: none; outline: none; font-size: 0.85rem; padding: 0.3rem 0;" required />
+                        </div>
+                        <div style="padding: 0.6rem 0.7rem;">
+                            <input type="tel" id="customer-phone" placeholder="رقم الجوال" style="width: 100%; border: none; outline: none; font-size: 0.85rem; padding: 0.3rem 0;" required />
+                        </div>
+                    </div>
+
+                    <button type="button" class="primary-button" id="submit-booking">إرسال طلب الحجز</button>
+                    <p class="muted-text" style="margin-top: 0.5rem;">
+                        بعد إرسال طلب الحجز، سيتم التواصل معك عبر الواتساب لتأكيد الحجز وترتيب الدفع.
+                    </p>
+                </div>
+            </aside>
+        </section>
+
+        <section class="dates-layout" aria-label="التواريخ">
+            <div class="calendar-shell">
+                <div class="calendar-header-row">
+                    <div>
+                        <div class="calendar-trip-title" id="trip-title">اختر تواريخ إقامتك</div>
+                        <div class="calendar-trip-sub" id="trip-dates">اضغط على يوم البداية ثم يوم النهاية</div>
+                    </div>
+                </div>
+
+                <div class="calendar-months">
+                    <div>
+                        <div class="calendar-month-name">نوفمبر 2025</div>
+                        <div class="calendar-grid" data-month="2025-11">
+                            <div class="calendar-day-label">ح</div>
+                            <div class="calendar-day-label">ن</div>
+                            <div class="calendar-day-label">ث</div>
+                            <div class="calendar-day-label">ر</div>
+                            <div class="calendar-day-label">خ</div>
+                            <div class="calendar-day-label">ج</div>
+                            <div class="calendar-day-label">س</div>
+
+                            <div class="calendar-cell calendar-cell-muted" data-date="">&nbsp;</div>
+                            <div class="calendar-cell calendar-cell-muted" data-date="">&nbsp;</div>
+                            <div class="calendar-cell" data-date="2025-11-01">1</div>
+                            <div class="calendar-cell" data-date="2025-11-02">2</div>
+                            <div class="calendar-cell" data-date="2025-11-03">3</div>
+                            <div class="calendar-cell" data-date="2025-11-04">4</div>
+                            <div class="calendar-cell" data-date="2025-11-05">5</div>
+
+                            <div class="calendar-cell" data-date="2025-11-06">6</div>
+                            <div class="calendar-cell" data-date="2025-11-07">7</div>
+                            <div class="calendar-cell" data-date="2025-11-08">8</div>
+                            <div class="calendar-cell" data-date="2025-11-09">9</div>
+                            <div class="calendar-cell" data-date="2025-11-10">10</div>
+                            <div class="calendar-cell" data-date="2025-11-11">11</div>
+                            <div class="calendar-cell" data-date="2025-11-12">12</div>
+
+                            <div class="calendar-cell" data-date="2025-11-13">13</div>
+                            <div class="calendar-cell" data-date="2025-11-14">14</div>
+                            <div class="calendar-cell" data-date="2025-11-15">15</div>
+                            <div class="calendar-cell" data-date="2025-11-16">16</div>
+                            <div class="calendar-cell" data-date="2025-11-17">17</div>
+                            <div class="calendar-cell" data-date="2025-11-18">18</div>
+                            <div class="calendar-cell" data-date="2025-11-19">19</div>
+
+                            <div class="calendar-cell" data-date="2025-11-20">20</div>
+                            <div class="calendar-cell" data-date="2025-11-21">21</div>
+                            <div class="calendar-cell" data-date="2025-11-22">22</div>
+                            <div class="calendar-cell" data-date="2025-11-23">23</div>
+                            <div class="calendar-cell" data-date="2025-11-24">24</div>
+                            <div class="calendar-cell" data-date="2025-11-25">25</div>
+                            <div class="calendar-cell" data-date="2025-11-26">26</div>
+
+                            <div class="calendar-cell" data-date="2025-11-27">27</div>
+                            <div class="calendar-cell" data-date="2025-11-28">28</div>
+                            <div class="calendar-cell" data-date="2025-11-29">29</div>
+                            <div class="calendar-cell" data-date="2025-11-30">30</div>
+                            <div class="calendar-cell calendar-cell-muted" data-date="">&nbsp;</div>
+                            <div class="calendar-cell calendar-cell-muted" data-date="">&nbsp;</div>
+                            <div class="calendar-cell calendar-cell-muted" data-date="">&nbsp;</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="calendar-month-name">ديسمبر 2025</div>
+                        <div class="calendar-grid" data-month="2025-12">
+                            <div class="calendar-day-label">ح</div>
+                            <div class="calendar-day-label">ن</div>
+                            <div class="calendar-day-label">ث</div>
+                            <div class="calendar-day-label">ر</div>
+                            <div class="calendar-day-label">خ</div>
+                            <div class="calendar-day-label">ج</div>
+                            <div class="calendar-day-label">س</div>
+
+                            <div class="calendar-cell" data-date="2025-12-01">1</div>
+                            <div class="calendar-cell" data-date="2025-12-02">2</div>
+                            <div class="calendar-cell" data-date="2025-12-03">3</div>
+                            <div class="calendar-cell" data-date="2025-12-04">4</div>
+                            <div class="calendar-cell" data-date="2025-12-05">5</div>
+                            <div class="calendar-cell" data-date="2025-12-06">6</div>
+                            <div class="calendar-cell" data-date="2025-12-07">7</div>
+
+                            <div class="calendar-cell" data-date="2025-12-08">8</div>
+                            <div class="calendar-cell" data-date="2025-12-09">9</div>
+                            <div class="calendar-cell" data-date="2025-12-10">10</div>
+                            <div class="calendar-cell" data-date="2025-12-11">11</div>
+                            <div class="calendar-cell" data-date="2025-12-12">12</div>
+                            <div class="calendar-cell" data-date="2025-12-13">13</div>
+                            <div class="calendar-cell" data-date="2025-12-14">14</div>
+
+                            <div class="calendar-cell" data-date="2025-12-15">15</div>
+                            <div class="calendar-cell" data-date="2025-12-16">16</div>
+                            <div class="calendar-cell" data-date="2025-12-17">17</div>
+                            <div class="calendar-cell" data-date="2025-12-18">18</div>
+                            <div class="calendar-cell" data-date="2025-12-19">19</div>
+                            <div class="calendar-cell" data-date="2025-12-20">20</div>
+                            <div class="calendar-cell" data-date="2025-12-21">21</div>
+
+                            <div class="calendar-cell" data-date="2025-12-22">22</div>
+                            <div class="calendar-cell" data-date="2025-12-23">23</div>
+                            <div class="calendar-cell" data-date="2025-12-24">24</div>
+                            <div class="calendar-cell" data-date="2025-12-25">25</div>
+                            <div class="calendar-cell" data-date="2025-12-26">26</div>
+                            <div class="calendar-cell" data-date="2025-12-27">27</div>
+                            <div class="calendar-cell" data-date="2025-12-28">28</div>
+
+                            <div class="calendar-cell" data-date="2025-12-29">29</div>
+                            <div class="calendar-cell" data-date="2025-12-30">30</div>
+                            <div class="calendar-cell" data-date="2025-12-31">31</div>
+                            <div class="calendar-cell calendar-cell-muted" data-date="">&nbsp;</div>
+                            <div class="calendar-cell calendar-cell-muted" data-date="">&nbsp;</div>
+                            <div class="calendar-cell calendar-cell-muted" data-date="">&nbsp;</div>
+                            <div class="calendar-cell calendar-cell-muted" data-date="">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="calendar-footer-link" id="clear-dates">محو التواريخ</a>
+            </div>
+        </section>
+
+        <section class="rating-section" aria-label="تقييم الضيوف">
+            <div class="rating-score">5.0</div>
+            <div class="rating-title">مفضّل لدى الضيوف</div>
+            <div class="rating-text">هذا المسكن هو مفضّل لدى الضيوف، استناداً إلى التقييمات والمراجعات وبيانات موثوقة.</div>
+        </section>
+
+        <section class="amenities-section" aria-label="ما يقدمه هذا المسكن">
+            <div class="amenities-card">
+                <h2 class="amenities-title">ما يقدمه هذا المسكن</h2>
+                <p class="amenities-intro">مجموعة من الخدمات والمرافق المتوفرة لضمان إقامة مريحة في واجهة نجران للوحدات السكنية.</p>
+
+                <div class="amenities-list">
+                    {% if unit_id == '1' %}
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>سرير كينج فاخر مع مفارش فندقية مريحة.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>واي فاي مجاني وتلفزيون ذكي مع خدمات بث.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>زاوية للقهوة والشاي مع ثلاجة صغيرة.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>تكييف هواء وستائر تعتيم للنوم المريح.</span>
+                        </div>
+                    {% elif unit_id == '2' %}
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>سريران منفصلان مثاليان للأفراد أو الأصدقاء.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>مكتب عمل مريح وإنترنت فائق السرعة.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>تلفزيون ذكي مع قنوات ومنصات بث.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>موقف سيارات قريب وغسالة ملابس مشتركة في المبنى.</span>
+                        </div>
+                    {% elif unit_id == '3' %}
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>صالة جلوس مريحة مع تلفزيون ذكي.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>مطبخ متكامل بالأدوات الأساسية لتحضير الوجبات.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>طاولة طعام صغيرة مناسبة للإقامات الطويلة.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>واي فاي مجاني وتكييف في الغرفة والصالة.</span>
+                        </div>
+                    {% elif unit_id == '4' %}
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>غرفتا نوم منفصلتان تناسب العائلات.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>صالة واسعة مع منطقة جلوس عائلية وتلفزيون.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>مطبخ كامل التجهيز مع موقد وأدوات طبخ.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>موقف سيارات قريب وإمكانية توفير أسرة إضافية عند الطلب.</span>
+                        </div>
+                    {% elif unit_id == '5' %}
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>جناح ملكي واسع بثلاث غرف ماستر وصالة VIP.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>تصميم فاخر مع تلفزيونات ذكية متعددة ونظام ترفيهي.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>مطبخ راقي مزود بفرن وميكروويف وأدوات طهي متقدمة.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>موقف خاص وإمكانية خدمة تنظيف إضافية عند الطلب.</span>
+                        </div>
+                    {% else %}
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>واي فاي مجاني في جميع أرجاء الشقة.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>تلفزيون ذكي مع خدمات بث.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>تكييف هواء موحّد في الغرف والصالة.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>مطبخ مجهز بالأدوات الأساسية.</span>
+                        </div>
+                        <div class="amenity-item">
+                            <span class="amenity-icon"></span>
+                            <span>موقف سيارات مجاني بالقرب من المبنى.</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="button" class="amenities-link" id="open-amenities-modal">عرض المميزات بالكامل</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Time Picker Modal -->
+    <div class="time-picker-modal" id="time-picker-modal">
+        <div class="time-picker-content">
+            <div class="time-picker-header">
+                <div class="time-picker-title" id="time-picker-title">اختر الوقت</div>
+                <button type="button" class="time-picker-close" id="close-time-picker">×</button>
+            </div>
+            <div class="time-grid" id="time-grid"></div>
+        </div>
+    </div>
+    <div class="modal-backdrop" id="amenities-modal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="amenities-modal-title">
+            <div class="modal-header">
+                <h2 class="modal-title" id="amenities-modal-title">ما يقدمه هذا المسكن</h2>
+                <button type="button" class="modal-close" id="close-amenities-modal" aria-label="إغلاق">×</button>
+            </div>
+
+            <p class="amenities-intro">يتميز السكن بتوفير معظم الاحتياجات الأساسية لإقامة مريحة وهادئة في نجران.</p>
+
+            <div>
+                <div class="modal-section-title">الترفيه</div>
+                <ul class="modal-amenity-list">
+                    <li>تلفزيون ذكي مع إمكانية تسجيل الدخول إلى منصات البث.</li>
+                    <li>اتصال واي فاي سريع ومستقر.</li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="modal-section-title">الراحة والتبريد</div>
+                <ul class="modal-amenity-list">
+                    <li>مكيف هواء بارد/حار.</li>
+                    <li>ستائر تعتيم للنوم المريح.</li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="modal-section-title">السلامة داخل السكن</div>
+                <ul class="modal-amenity-list">
+                    <li>جهاز إنذار للدخان.</li>
+                    <li>مطفأة حريق صغيرة.</li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="modal-section-title">المطبخ والخدمات</div>
+                <ul class="modal-amenity-list">
+                    <li>موقد كهربائي وأدوات طبخ أساسية.</li>
+                    <li>غلاية ماء وأدوات تحضير القهوة والشاي.</li>
+                    <li>ثلاجة صغيرة.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var openBtn = document.getElementById('open-amenities-modal');
+            var closeBtn = document.getElementById('close-amenities-modal');
+            var backdrop = document.getElementById('amenities-modal');
+
+            if (!openBtn || !closeBtn || !backdrop) return;
+
+            openBtn.addEventListener('click', function () {
+                backdrop.classList.add('is-open');
+            });
+
+            closeBtn.addEventListener('click', function () {
+                backdrop.classList.remove('is-open');
+            });
+
+            backdrop.addEventListener('click', function (event) {
+                if (event.target === backdrop) {
+                    backdrop.classList.remove('is-open');
+                }
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            var checkinDate = null;
+            var checkoutDate = null;
+            var isSelectingCheckout = false;
+
+            var checkinDisplay = document.getElementById('checkin-display');
+            var checkoutDisplay = document.getElementById('checkout-display');
+            var tripTitle = document.getElementById('trip-title');
+            var tripDates = document.getElementById('trip-dates');
+            var clearBtn = document.getElementById('clear-dates');
+            var nightsSummaryEl = document.getElementById('nights-summary');
+
+            var allCells = document.querySelectorAll('.calendar-cell[data-date]');
+
+            function getQueryParam(name) {
+                var params = new URLSearchParams(window.location.search || '');
+                return params.get(name);
+            }
+
+            function clearSelection() {
+                checkinDate = null;
+                checkoutDate = null;
+                isSelectingCheckout = false;
+                checkinDisplay.textContent = 'اختر التاريخ';
+                checkoutDisplay.textContent = 'اختر التاريخ';
+                tripTitle.textContent = 'اختر تواريخ إقامتك';
+                tripDates.textContent = 'اضغط على يوم البداية ثم يوم النهاية';
+                if (nightsSummaryEl) {
+                    nightsSummaryEl.textContent = '';
+                }
+                updateCalendarHighlight();
+            }
+
+            function formatDateArabic(dateStr) {
+                if (!dateStr) return '';
+                var parts = dateStr.split('-');
+                return parts[0] + '/' + parts[1] + '/' + parts[2];
+            }
+
+            function updateCalendarHighlight() {
+                allCells.forEach(function (cell) {
+                    var cellDate = cell.getAttribute('data-date');
+                    if (!cellDate) return;
+
+                    cell.classList.remove('calendar-cell-active', 'calendar-cell-range');
+
+                    if (checkinDate && cellDate === checkinDate) {
+                        cell.classList.add('calendar-cell-active');
+                    }
+                    if (checkoutDate && cellDate === checkoutDate) {
+                        cell.classList.add('calendar-cell-active');
+                    }
+                    if (checkinDate && checkoutDate && cellDate > checkinDate && cellDate < checkoutDate) {
+                        cell.classList.add('calendar-cell-range');
+                    }
+                });
+            }
+
+            function calculateNights() {
+                if (!checkinDate || !checkoutDate) return 0;
+                var d1 = new Date(checkinDate);
+                var d2 = new Date(checkoutDate);
+                var diff = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
+                return diff > 0 ? diff : 0;
+            }
+
+            allCells.forEach(function (cell) {
+                cell.addEventListener('click', function () {
+                    var cellDate = cell.getAttribute('data-date');
+                    if (!cellDate || cell.classList.contains('calendar-cell-muted')) return;
+
+                    if (!isSelectingCheckout) {
+                        // اختيار تاريخ الوصول
+                        checkinDate = cellDate;
+                        checkoutDate = null;
+                        isSelectingCheckout = true;
+                        checkinDisplay.textContent = formatDateArabic(cellDate);
+                        checkoutDisplay.textContent = 'اختر التاريخ';
+                        tripTitle.textContent = 'اختر تاريخ المغادرة';
+                        tripDates.textContent = 'اضغط على يوم المغادرة';
+                        if (nightsSummaryEl) {
+                            nightsSummaryEl.textContent = '';
+                        }
+                    } else {
+                        // اختيار تاريخ المغادرة
+                        if (cellDate > checkinDate) {
+                            checkoutDate = cellDate;
+                            checkoutDisplay.textContent = formatDateArabic(cellDate);
+                            var nights = calculateNights();
+                            tripTitle.textContent = nights + ' ليالٍ في نجران';
+                            tripDates.textContent = formatDateArabic(checkinDate) + ' – ' + formatDateArabic(checkoutDate);
+                            if (nightsSummaryEl && nights > 0) {
+                                nightsSummaryEl.textContent = 'عدد ليالي الحجز: ' + nights + ' ليلة';
+                            }
+                            isSelectingCheckout = false;
+                        } else {
+                            // إذا اختار تاريخاً أسبق نعيد اعتباره تاريخ وصول جديد
+                            checkinDate = cellDate;
+                            checkoutDate = null;
+                            isSelectingCheckout = true;
+                            checkinDisplay.textContent = formatDateArabic(cellDate);
+                            checkoutDisplay.textContent = 'اختر التاريخ';
+                            tripTitle.textContent = 'اختر تاريخ المغادرة';
+                            tripDates.textContent = 'اضغط على يوم المغادرة';
+                            if (nightsSummaryEl) {
+                                nightsSummaryEl.textContent = '';
+                            }
+                        }
+                    }
+                    updateCalendarHighlight();
+                });
+            });
+
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    clearSelection();
+                });
+            }
+
+            // Guest counters (يتم تهيئتها من رابط الصفحة إن وُجدت قيم)
+            var adultsFromUrl = parseInt(getQueryParam('adults') || '0', 10);
+            var childrenFromUrl = parseInt(getQueryParam('children') || '0', 10);
+
+            var adultsCount = adultsFromUrl > 0 ? adultsFromUrl : 1;
+            var childrenCount = childrenFromUrl > 0 ? childrenFromUrl : 0;
+
+            var adultsCountEl = document.getElementById('adults-count');
+            var childrenCountEl = document.getElementById('children-count');
+            if (adultsCountEl) adultsCountEl.textContent = adultsCount;
+            if (childrenCountEl) childrenCountEl.textContent = childrenCount;
+
+            document.getElementById('adults-plus').addEventListener('click', function() {
+                if (adultsCount < 20) {
+                    adultsCount++;
+                    document.getElementById('adults-count').textContent = adultsCount;
+                }
+            });
+
+            document.getElementById('adults-minus').addEventListener('click', function() {
+                if (adultsCount > 1) {
+                    adultsCount--;
+                    document.getElementById('adults-count').textContent = adultsCount;
+                }
+            });
+
+            document.getElementById('children-plus').addEventListener('click', function() {
+                if (childrenCount < 10) {
+                    childrenCount++;
+                    document.getElementById('children-count').textContent = childrenCount;
+                }
+            });
+
+            document.getElementById('children-minus').addEventListener('click', function() {
+                if (childrenCount > 0) {
+                    childrenCount--;
+                    document.getElementById('children-count').textContent = childrenCount;
+                }
+            });
+
+            // تهيئة التواريخ من رابط الصفحة (إن وُجدت)
+            var checkinFromUrl = getQueryParam('checkin');
+            var checkoutFromUrl = getQueryParam('checkout');
+
+            if (checkinFromUrl) {
+                checkinDate = checkinFromUrl;
+                if (checkinDisplay) {
+                    checkinDisplay.textContent = formatDateArabic(checkinFromUrl);
+                }
+                tripTitle.textContent = 'اختر تاريخ المغادرة';
+                tripDates.textContent = 'اضغط على يوم المغادرة';
+            }
+
+            if (checkoutFromUrl) {
+                checkoutDate = checkoutFromUrl;
+                if (checkoutDisplay) {
+                    checkoutDisplay.textContent = formatDateArabic(checkoutFromUrl);
+                }
+                var initialNights = calculateNights();
+                if (initialNights > 0) {
+                    tripTitle.textContent = initialNights + ' ليالٍ في نجران';
+                    tripDates.textContent = formatDateArabic(checkinDate) + ' – ' + formatDateArabic(checkoutDate);
+                    if (nightsSummaryEl) {
+                        nightsSummaryEl.textContent = 'عدد ليالي الحجز: ' + initialNights + ' ليلة';
+                    }
+                    isSelectingCheckout = false;
+                }
+            }
+
+            updateCalendarHighlight();
+
+            // Time picker
+            var timePickerModal = document.getElementById('time-picker-modal');
+            var timeGrid = document.getElementById('time-grid');
+            var timePickerTitle = document.getElementById('time-picker-title');
+            var currentTimeField = null;
+            var checkinTimeValue = '15:00';
+            var checkoutTimeValue = '12:00';
+
+            var timeLabels = {
+                    '00:00': 'الثانية عشر ليلاً',
+                    '01:00': 'الواحدة صباحاً',
+                    '02:00': 'الثانية صباحاً',
+                    '03:00': 'الثالثة صباحاً',
+                    '04:00': 'الرابعة صباحاً',
+                    '05:00': 'الخامسة صباحاً',
+                    '06:00': 'السادسة صباحاً',
+                    '07:00': 'السابعة صباحاً',
+                    '08:00': 'الثامنة صباحاً',
+                    '09:00': 'التاسعة صباحاً',
+                    '10:00': 'العاشرة صباحاً',
+                    '11:00': 'الحادية عشر صباحاً',
+                    '12:00': 'الثانية عشر ظهراً',
+                    '13:00': 'الواحدة ظهراً',
+                    '14:00': 'الثانية ظهراً',
+                    '15:00': 'الثالثة عصراً',
+                    '16:00': 'الرابعة عصراً',
+                    '17:00': 'الخامسة مساءً',
+                    '18:00': 'السادسة مساءً',
+                    '19:00': 'السابعة مساءً',
+                    '20:00': 'الثامنة مساءً',
+                    '21:00': 'التاسعة مساءً',
+                    '22:00': 'العاشرة مساءً',
+                    '23:00': 'الحادية عشر ليلاً'
+                };
+
+                function generateTimeSlots() {
+                    timeGrid.innerHTML = '';
+                    for (var hour = 0; hour < 24; hour++) {
+                        var timeValue = (hour < 10 ? '0' : '') + hour + ':00';
+                        var slot = document.createElement('div');
+                        slot.className = 'time-slot';
+                        slot.textContent = timeLabels[timeValue];
+                        slot.setAttribute('data-time', timeValue);
+                        slot.addEventListener('click', function() {
+                            var selectedTime = this.getAttribute('data-time');
+                            var selectedLabel = this.textContent;
+                            if (currentTimeField === 'checkin') {
+                                checkinTimeValue = selectedTime;
+                                document.getElementById('checkin-time-display').textContent = selectedLabel;
+                            } else {
+                                checkoutTimeValue = selectedTime;
+                                document.getElementById('checkout-time-display').textContent = selectedLabel;
+                            }
+                            timePickerModal.classList.remove('is-open');
+                        });
+                        timeGrid.appendChild(slot);
+                    }
+                }
+
+                document.getElementById('open-checkin-time').addEventListener('click', function() {
+                    currentTimeField = 'checkin';
+                    timePickerTitle.textContent = 'اختر وقت الوصول';
+                    generateTimeSlots();
+                    timePickerModal.classList.add('is-open');
+                });
+
+                document.getElementById('open-checkout-time').addEventListener('click', function() {
+                    currentTimeField = 'checkout';
+                    timePickerTitle.textContent = 'اختر وقت المغادرة';
+                    generateTimeSlots();
+                    timePickerModal.classList.add('is-open');
+                });
+
+                document.getElementById('close-time-picker').addEventListener('click', function() {
+                    timePickerModal.classList.remove('is-open');
+                });
+
+                timePickerModal.addEventListener('click', function(e) {
+                    if (e.target === timePickerModal) {
+                        timePickerModal.classList.remove('is-open');
+                    }
+                });
+
+            // WhatsApp booking submission
+            document.getElementById('submit-booking').addEventListener('click', function() {
+                var customerName = document.getElementById('customer-name').value.trim();
+                var customerPhone = document.getElementById('customer-phone').value.trim();
+                var unitTitleEl = document.querySelector('.listing-title');
+                var unitTitle = unitTitleEl ? unitTitleEl.textContent.trim() : 'وحدة سكنية في واجهة نجران';
+
+                if (!customerName) {
+                    alert('الرجاء إدخال الاسم الكامل');
+                    return;
+                }
+                if (!customerPhone) {
+                    alert('الرجاء إدخال رقم الجوال');
+                    return;
+                }
+                if (!checkinDate || !checkoutDate) {
+                    alert('الرجاء اختيار تاريخ الوصول والمغادرة من التقويم أدناه');
+                    return;
+                }
+
+                var nights = calculateNights();
+                var totalGuests = adultsCount + childrenCount;
+                var checkinTimeArabic = timeLabels[checkinTimeValue] || checkinTimeValue;
+                var checkoutTimeArabic = timeLabels[checkoutTimeValue] || checkoutTimeValue;
+
+                var message = 'السلام عليكم،\n';
+                message += 'أرغب في حجز شقة من واجهة نجران للوحدات السكنية\n\n';
+                message += '*تفاصيل الحجز:*\n';
+                message += '━━━━━━━━━━━━━━━\n';
+                message += '🏠 الشقة: ' + unitTitle + '\n';
+                message += '📅 تاريخ الوصول: ' + formatDateArabic(checkinDate) + ' - الساعة ' + checkinTimeArabic + '\n';
+                message += '📅 تاريخ المغادرة: ' + formatDateArabic(checkoutDate) + ' - الساعة ' + checkoutTimeArabic + '\n';
+                message += '🌙 عدد الليالي: ' + nights + ' ليالٍ\n';
+                message += '👥 عدد الضيوف: ' + totalGuests + ' ضيف (' + adultsCount + ' بالغ، ' + childrenCount + ' طفل)\n';
+                message += '━━━━━━━━━━━━━━━\n\n';
+                message += '*بيانات التواصل:*\n';
+                message += '👤 الاسم: ' + customerName + '\n';
+                message += '📱 الجوال: ' + customerPhone + '\n\n';
+                message += 'في انتظار التأكيد، شكراً';
+
+                var whatsappURL = 'https://wa.me/966553873504?text=' + encodeURIComponent(message);
+                window.open(whatsappURL, '_blank');
+            });
+        })();
+    </script>
+</body>
+</html>
