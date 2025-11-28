@@ -812,7 +812,7 @@
                 {% elif unit_id == '3' %}
                     جناح (غرفة وصالة ودورة مياه ومطبخ)
                 {% elif unit_id == '4' %}
-                    شقة غرفتين وصالة
+                    شقة الغرفتين والصالة
                 {% elif unit_id == '5' %}
                     الجناح الملكي الفاخر
                 {% else %}
@@ -839,7 +839,7 @@
                 {% elif unit_id == '3' %}
                     <img src="/media/jnah.png" alt="جناح غرفة وصالة" />
                 {% elif unit_id == '4' %}
-                    <img src="https://images.pexels.com/photos/7511709/pexels-photo-7511709.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="شقة غرفتين وصالة" />
+                    <img src="/media/sarer2.png" alt="شقة غرفتين وصالة" />
                 {% elif unit_id == '5' %}
                     <video src="/media/mlkyvido.mp4" controls autoplay muted loop playsinline aria-label="فيديو الجناح الملكي الفاخر"></video>
                 {% endif %}
@@ -858,7 +858,7 @@
                     <img src="/media/jnah2.png" alt="منطقة النوم" />
                     <img src="/media/jnah3.png" alt="تفاصيل الجناح" />
                 {% elif unit_id == '4' %}
-                    <img src="https://images.pexels.com/photos/7511713/pexels-photo-7511713.jpeg?auto=compress&cs=tinysrgb&w=800" alt="غرفة النوم الأولى" />
+                    <img src="/media/sarer2.png" alt="غرفة النوم الأولى" />
                     <img src="https://images.pexels.com/photos/7511710/pexels-photo-7511710.jpeg?auto=compress&cs=tinysrgb&w=800" alt="غرفة النوم الثانية" />
                     <img src="https://images.pexels.com/photos/7511707/pexels-photo-7511707.jpeg?auto=compress&cs=tinysrgb&w=800" alt="منطقة الجلوس" />
                 {% elif unit_id == '5' %}
@@ -875,10 +875,27 @@
                 <div class="card">
                     <h2>وصف الوحدة</h2>
                     <div class="meta-row">
-                        <span>4 ضيوف</span>
-                        <span>1 غرفة نوم</span>
-                        <span>1 سرير</span>
-                        <span>1 حمام</span>
+                        {% if unit_id == '1' %}
+                            <span>2 ضيوف</span>
+                            <span>1 غرفة نوم</span>
+                            <span>1 سرير</span>
+                            <span>1 حمام</span>
+                        {% elif unit_id == '2' %}
+                            <span>2 ضيوف</span>
+                            <span>1 غرفة نوم</span>
+                            <span>2 سرير</span>
+                            <span>1 حمام</span>
+                        {% elif unit_id == '4' %}
+                            <span>4 ضيوف</span>
+                            <span>2 غرفة نوم</span>
+                            <span>3 سرير</span>
+                            <span>2 دورات مياه</span>
+                        {% else %}
+                            <span>4 ضيوف</span>
+                            <span>1 غرفة نوم</span>
+                            <span>1 سرير</span>
+                            <span>1 حمام</span>
+                        {% endif %}
                     </div>
 
                     <ul class="features-list">
@@ -903,10 +920,7 @@
                             <li>مطبخ كامل التجهيز مع منطقة طعام عائلية.</li>
                             <li>مناسبة للعائلات التي تبحث عن إقامة أوسع وخصوصية أكبر.</li>
                         {% elif unit_id == '5' %}
-                            <li>جناح ملكي فاخر بثلاث غرف ماستر وصالة VIP.</li>
-                            <li>تصميم راقٍ مع تشطيبات فاخرة وتجهيزات عالية الجودة.</li>
-                            <li>مطبخ راقي وتراس خاص لإطلالة مميزة على المدينة.</li>
-                            <li>مناسب للضيوف الباحثين عن أعلى درجات الرفاهية.</li>
+                            <li>دور خاص منعزل يشمل جناح ملكي فاخر غرف ماستر وصالة VIP.</li>
                         {% else %}
                             <li>تصميم داخلي عصري بإضاءة هادئة وأثاث مريح.</li>
                             <li>منطقة جلوس تطل على المدينة مع شاشة كبيرة وخدمة بث.</li>

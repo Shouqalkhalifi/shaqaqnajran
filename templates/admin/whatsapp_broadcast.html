@@ -4,260 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <title>إرسال رسائل واتساب للعملاء</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Tahoma, Arial, sans-serif;
-            background-color: #f3f4f6;
-        }
-
-        .page-wrapper {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 32px 12px;
-            box-sizing: border-box;
-        }
-
-        .broadcast-card {
-            background: #ffffff;
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-            border-radius: 20px;
-            padding: 26px 30px 24px;
-            width: 100%;
-            max-width: 960px;
-            box-sizing: border-box;
-            color: #111827;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 18px;
-            margin-bottom: 18px;
-        }
-
-        .card-title {
-            margin: 0;
-            font-size: 1.4rem;
-            color: #0f172a;
-        }
-
-        .card-subtitle {
-            margin: 6px 0 0;
-            font-size: 0.9rem;
-            color: #6b7280;
-        }
-
-        .hint-badge {
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 6px 14px;
-            border-radius: 999px;
-            font-size: 0.8rem;
-            border: 1px solid #bae6fd;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 1.4fr;
-            gap: 18px;
-        }
-
-        .form-group {
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 0.85rem;
-            color: #374151;
-        }
-
-        input[type="file"] {
-            width: 100%;
-            font-size: 0.85rem;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 150px;
-            resize: vertical;
-            padding: 10px 12px;
-            border-radius: 10px;
-            border: 1px solid #d1d5db;
-            background-color: #f9fafb;
-            color: #111827;
-            font-size: 0.95rem;
-            box-sizing: border-box;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #0ea5e9;
-            box-shadow: 0 0 0 1px #0ea5e9;
-            background-color: #ffffff;
-        }
-
-        .helper-text {
-            font-size: 0.8rem;
-            color: #6b7280;
-            margin-top: 4px;
-        }
-
-        .actions-row {
-            margin-top: 10px;
-            text-align: left;
-        }
-
-        .primary-btn {
-            padding: 9px 28px;
-            border-radius: 999px;
-            border: none;
-            background: linear-gradient(to left, #0ea5e9, #0284c7);
-            color: #ffffff;
-            font-size: 0.95rem;
-            cursor: pointer;
-        }
-
-        .primary-btn:hover {
-            background: linear-gradient(to left, #0369a1, #075985);
-        }
-
-        .status-bar {
-            margin-top: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: #4b5563;
-        }
-
-        .status-pill {
-            padding: 6px 12px;
-            border-radius: 999px;
-            background: #e5f3ff;
-            color: #0369a1;
-            border: 1px solid #bfdbfe;
-        }
-
-        .table-wrapper {
-            margin-top: 18px;
-            background: #f9fafb;
-            border-radius: 12px;
-            padding: 10px 12px;
-            max-height: 380px;
-            overflow: auto;
-            border: 1px solid #e5e7eb;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-            color: #111827;
-        }
-
-        thead {
-            background: #e5e7eb;
-        }
-
-        th, td {
-            padding: 8px 10px;
-            text-align: right;
-        }
-
-        tbody tr:nth-child(even) {
-            background: #ffffff;
-        }
-
-        tbody tr:nth-child(odd) {
-            background: #f9fafb;
-        }
-
-        .whatsapp-link {
-            color: #16a34a;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .whatsapp-link:hover {
-            text-decoration: underline;
-        }
-
-        .empty-state {
-            margin-top: 18px;
-            font-size: 0.85rem;
-            color: #6b7280;
-        }
-    </style>
 </head>
-<body>
-    <div class="page-wrapper">
-        <div class="broadcast-card">
-            <div class="card-header">
-                <div>
-                    <h1 class="card-title">إرسال رسائل واتساب للعملاء</h1>
-                    <p class="card-subtitle">ارفع ملف العملاء واكتب نصًا تسويقيًا ليتم توليد روابط واتساب جاهزة لكل عميل.</p>
+<body class="wb-body">
+    <div class="wb-page-wrapper">
+        <div class="wb-broadcast-card wb-fade-in">
+            <div class="wb-card-header">
+                <div class="wb-card-heading">
+                    <h1 class="wb-card-title"><i class="fa-brands fa-whatsapp wb-title-icon"></i> إرسال رسائل واتساب للعملاء</h1>
+                    <p class="wb-card-subtitle">ارفع ملف العملاء واكتب نصًا تسويقيًا ليتم توليد رسائل جاهزة وإرسالها لكل عميل بسهولة.</p>
                 </div>
-                <div class="hint-badge">يمكنك استخدام {name} داخل النص لوضع اسم العميل تلقائيًا</div>
+                <div class="wb-hint-badge">
+                    <i class="fa-solid fa-wand-magic-sparkles wb-hint-icon"></i>
+                    يمكنك استخدام {name} داخل النص لوضع اسم العميل تلقائيًا
+                </div>
             </div>
 
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" class="wb-form">
                 {% csrf_token %}
-                <div class="form-grid">
-                    <div>
-                        <div class="form-group">
-                            <label for="id_excel">ملف إكسل للعملاء</label>
-                            <input id="id_excel" type="file" name="excel_file" accept=".xlsx,.xls" required>
-                            <div class="helper-text">العمود الأول: الاسم، العمود الثاني: رقم الجوال (مثل 0501234567).</div>
+                <div class="wb-form-grid">
+                    <div class="wb-form-column wb-slide-up">
+                        <div class="wb-form-group">
+                            <label for="id_excel" class="wb-label"><i class="fa-solid fa-file-excel wb-label-icon"></i> ملف إكسل للعملاء</label>
+                            <div class="wb-file-input-wrapper">
+                                <input id="id_excel" type="file" name="excel_file" accept=".xlsx,.xls" required class="wb-file-input">
+                            </div>
+                            <div class="wb-helper-text">العمود الأول: الاسم، العمود الثاني: رقم الجوال (مثل 0501234567).</div>
                         </div>
                     </div>
-                    <div>
-                        <div class="form-group">
-                            <label for="id_message">النص الإعلاني / التسويقي</label>
-                            <textarea id="id_message" name="message" rows="5" required></textarea>
-                            <div class="helper-text">مثال: مرحبًا {name}، سعدنا بزيارتك لواجهة نجران للوحدات السكنية، نذكّرك بإمكانية الحجز مرة أخرى.</div>
+                    <div class="wb-form-column wb-slide-up delay-1">
+                        <div class="wb-form-group">
+                            <label for="id_message" class="wb-label"><i class="fa-solid fa-message wb-label-icon"></i> النص الإعلاني / التسويقي</label>
+                            <textarea id="id_message" name="message" rows="5" required class="wb-textarea"></textarea>
+                            <div class="wb-helper-text">مثال: مرحبًا {name}، سعدنا بزيارتك لواجهة نجران للوحدات السكنية، نذكّرك بإمكانية الحجز مرة أخرى.</div>
                         </div>
                     </div>
                 </div>
-                <div class="actions-row">
-                    <button type="submit" class="primary-btn">رفع الملف وتجهيز الروابط</button>
+                <div class="wb-actions-row wb-slide-up delay-2">
+                    <button type="submit" class="wb-btn wb-btn-primary">
+                        <i class="fa-solid fa-upload wb-btn-icon"></i>
+                        رفع الملف وتجهيز الأرقام
+                    </button>
                 </div>
             </form>
 
-            <div class="status-bar">
-                <div>
+            <div class="wb-status-bar wb-slide-up delay-3">
+                <div class="wb-status-left">
                     {% if contacts %}
-                        <span class="status-pill">تم تجهيز {{ contacts|length }} عميل / رقم واتساب</span>
+                        <span class="wb-status-pill"><i class="fa-solid fa-list-check wb-pill-icon"></i> تم تجهيز {{ contacts|length }} عميل / رقم واتساب</span>
                     {% else %}
-                        لم يتم تجهيز أي عملاء بعد.
+                        <span class="wb-status-empty">لم يتم تجهيز أي عملاء بعد.</span>
                     {% endif %}
                 </div>
-                <div>
+                <div class="wb-status-right">
                     {% if contacts %}
-                        <form method="post" style="display:inline;">
+                        <form method="post" class="wb-inline-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="send_all" value="1">
+                            <button type="submit" class="wb-btn wb-btn-accent">
+                                <i class="fa-solid fa-paper-plane wb-btn-icon"></i>
+                                إرسال الرسالة لكل العملاء
+                            </button>
+                        </form>
+                        <form method="post" class="wb-inline-form">
                             {% csrf_token %}
                             <input type="hidden" name="clear_contacts" value="1">
-                            <button type="submit" class="primary-btn" style="padding:6px 16px;font-size:0.8rem;">تفريغ القائمة</button>
+                            <button type="submit" class="wb-btn wb-btn-ghost">
+                                <i class="fa-solid fa-trash-can wb-btn-icon"></i>
+                                تفريغ القائمة
+                            </button>
                         </form>
                     {% endif %}
                 </div>
             </div>
 
             {% if contacts %}
-                <div class="table-wrapper">
-                    <table>
+                <div class="wb-table-wrapper wb-slide-up delay-4">
+                    <table class="wb-table">
                         <thead>
                             <tr>
                                 <th>الاسم</th>
                                 <th>رقم الجوال</th>
-                                <th>رابط واتساب</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -265,14 +93,16 @@
                                 <tr>
                                     <td>{{ c.name }}</td>
                                     <td>{{ c.phone }}</td>
-                                    <td><a class="whatsapp-link" href="{{ c.whatsapp_url }}" target="_blank">فتح واتساب وإرسال الرسالة</a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
             {% else %}
-                <div class="empty-state">بعد رفع الملف وكتابة النص ستظهر هنا قائمة العملاء وروابط الواتساب لهم.</div>
+                <div class="wb-empty-state wb-slide-up delay-4">
+                    <i class="fa-regular fa-face-smile-beam wb-empty-icon"></i>
+                    <p>بعد رفع الملف وكتابة النص ستظهر هنا قائمة العملاء وأرقام الواتساب الخاصة بهم.</p>
+                </div>
             {% endif %}
         </div>
     </div>

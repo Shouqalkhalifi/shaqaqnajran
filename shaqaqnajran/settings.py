@@ -88,3 +88,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# إعدادات WhatsApp Cloud API (ضعي القيم الحقيقية من لوحة Meta)
+WHATSAPP_ACCESS_TOKEN = "EAFbYPZAbPJOABQD2cyBV6Xw40LSlZBvRuMXngyzcu6I7Q0OkuxrXVo9wIWXKg4LjWzg8QWRNchTnsxrPD8F3NgvVXrAZCDIXsU8x2ZBDwXUNugNo26ovOmwZCOgohzwi8IZASg1RXodFrFQlKZCjcNODzkeRXyweA5cZAUZADqGokQ5Vdna7vNNARM6AG0voJtnpE8AZDZD"  # ضعِ هنا الـ access token المؤقت أو الدائم
+WHATSAPP_PHONE_NUMBER_ID = "855637350972294"
+WHATSAPP_BUSINESS_ACCOUNT_ID = "1254994619791622"

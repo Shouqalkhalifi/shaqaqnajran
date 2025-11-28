@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login
 from urllib.parse import quote
 import re
+import requests
 from openpyxl import load_workbook
 
 
@@ -45,17 +46,57 @@ def whatsapp_broadcast(request):
     if not request.session.get("marketing_admin_authenticated"):
         return redirect("admin_login")
 
-    contacts = []
+    contacts = request.session.get("broadcast_contacts", [])
 
     if request.method == "POST":
-        # إذا تم الضغط على زر تفريغ القائمة، لا نعالج ملفًا جديدًا
+        # زر تفريغ القائمة
         if request.POST.get("clear_contacts"):
+            request.session["broadcast_contacts"] = []
             return render(request, "admin/whatsapp_broadcast.html", {"contacts": []})
 
+        # زر إرسال لجميع العملاء باستخدام القائمة المخزنة
+        if request.POST.get("send_all"):
+            contacts = request.session.get("broadcast_contacts", [])
+
+            if contacts:
+                access_token = settings.WHATSAPP_ACCESS_TOKEN
+                phone_number_id = settings.WHATSAPP_PHONE_NUMBER_ID
+
+                api_url = f"https://graph.facebook.com/v20.0/{phone_number_id}/messages"
+                headers = {
+                    "Authorization": f"Bearer {access_token}",
+                    "Content-Type": "application/json",
+                }
+
+                for c in contacts:
+                    payload = {
+                        "messaging_product": "whatsapp",
+                        "to": c["phone"],
+                        "type": "text",
+                        "text": {
+                            "preview_url": False,
+                            "body": c["text"],
+                        },
+                    }
+
+                    try:
+                        response = requests.post(api_url, json=payload, headers=headers, timeout=10)
+                        print("WHATSAPP API STATUS:", response.status_code)
+                        print("WHATSAPP API RESPONSE:", response.text)
+                    except Exception as e:
+                        print("WHATSAPP API ERROR:", e)
+                        continue
+
+            # بعد الإرسال نحافظ على القائمة للعرض فقط
+            return render(request, "admin/whatsapp_broadcast.html", {"contacts": contacts})
+
+        # رفع ملف جديد وتجهيز القائمة فقط بدون إرسال
         excel_file = request.FILES.get("excel_file")
         message = request.POST.get("message", "")
 
         if excel_file and message:
+            new_contacts = []
+
             wb = load_workbook(excel_file, data_only=True)
             sheet = wb.active
 
@@ -74,13 +115,18 @@ def whatsapp_broadcast(request):
                 if not cleaned.startswith("966"):
                     cleaned = "966" + cleaned
 
-                text = quote(str(message).replace("{name}", str(name) if name else ""))
-                whatsapp_url = f"https://wa.me/{cleaned}?text={text}"
+                personalized_text = str(message).replace("{name}", str(name) if name else "")
+                encoded_text = quote(personalized_text)
+                whatsapp_url = f"https://wa.me/{cleaned}?text={encoded_text}"
 
-                contacts.append({
+                new_contacts.append({
                     "name": name,
                     "phone": cleaned,
                     "whatsapp_url": whatsapp_url,
+                    "text": personalized_text,
                 })
+
+            contacts = new_contacts
+            request.session["broadcast_contacts"] = contacts
 
     return render(request, "admin/whatsapp_broadcast.html", {"contacts": contacts})
